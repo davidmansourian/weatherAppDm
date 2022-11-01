@@ -15,6 +15,7 @@
 		DB072199291175F8005C2C03 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB072198291175F8005C2C03 /* WeatherView.swift */; };
 		DB07219B29117623005C2C03 /* TodaysWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB07219A29117623005C2C03 /* TodaysWeatherView.swift */; };
 		DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */; };
+		DB07219F2911C665005C2C03 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB07219E2911C665005C2C03 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		DB072198291175F8005C2C03 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		DB07219A29117623005C2C03 /* TodaysWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysWeatherView.swift; sourceTree = "<group>"; };
 		DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysWeatherTextView.swift; sourceTree = "<group>"; };
+		DB07219E2911C665005C2C03 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				DB072198291175F8005C2C03 /* WeatherView.swift */,
 				DB07219A29117623005C2C03 /* TodaysWeatherView.swift */,
 				DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */,
+				DB07219E2911C665005C2C03 /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				DB07219529117001005C2C03 /* ScreenView.swift in Sources */,
 				DB07218429116A8B005C2C03 /* weatherAppDmApp.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
+				DB07219F2911C665005C2C03 /* SearchView.swift in Sources */,
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,
 				DB07219B29117623005C2C03 /* TodaysWeatherView.swift in Sources */,

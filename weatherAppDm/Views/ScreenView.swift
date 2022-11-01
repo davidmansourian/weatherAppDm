@@ -24,15 +24,20 @@ struct ScreenView: View {
                 .padding(.top, 1)
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
-                        NavigationLink(destination:{}){
+                        NavigationLink(destination: SearchView()){
                             Image(systemName: "magnifyingglass")
-                                .foregroundColor(Color.white)
+                                .foregroundColor(Color.black)
+                                .padding(10)
+                                .background(Color.white.opacity(0.4))
+                                .clipShape(Circle())
                         }
                     }
                     ToolbarItemGroup(placement: .navigationBarLeading){
                         NavigationLink(destination:{}){
                             Image(systemName: "line.horizontal.3")
-                                .foregroundColor(Color.white)
+                                .foregroundColor(Color.black)
+                                .padding(10)
+                                .clipShape(Circle())
                         }
                     }
                 }

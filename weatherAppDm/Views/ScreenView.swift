@@ -33,6 +33,9 @@ struct ScreenView: View {
                 }
             }
         }
+        .toolbar{
+            
+        }
     }
 }
 

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ScreenView: View {
+    @State private var showSearchBar = false
     var body: some View {
         NavigationStack{
             ZStack{
@@ -25,7 +26,9 @@ struct ScreenView: View {
                 .padding(.top, 1)
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
-                        NavigationLink(destination: SearchView()){
+                        Button {
+                            showSearchBar.toggle()
+                        } label: {
                             Image(systemName: "magnifyingglass")
                                 .foregroundColor(Color.black)
                                 .padding(10)
@@ -43,13 +46,12 @@ struct ScreenView: View {
                         }
                     }
                     ToolbarItemGroup(placement: .principal){
-                        SearchView()
+                        if showSearchBar{
+                            SearchView()
+                        }
                     } // if pressed then show bar with results and blur background view
                 }
             }
-        }
-        .toolbar{
-            
         }
     }
 }
@@ -59,3 +61,4 @@ struct ScreenView_Previews: PreviewProvider {
         ScreenView()
     }
 }
+

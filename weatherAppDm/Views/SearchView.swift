@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct SearchView: View {
+    @State var searchString: String = ""
     var body: some View {
-        VStack{
+        HStack{
+            TextField("Search locations...", text: $searchString)
+                .foregroundColor(Color.white)
+        }
+        .font(.headline)
+        .padding()
+        .background(
             Rectangle()
                 .fill(Color.white)
                 .frame(maxWidth: .infinity, maxHeight: 40)
                 .cornerRadius(20)
-                .shadow(radius: 5)
-                .opacity(0.5)
-        }
+                .shadow(radius: 8)
+                .opacity(0.2))
     }
 }
 

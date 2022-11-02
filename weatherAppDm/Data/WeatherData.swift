@@ -9,12 +9,13 @@
 import CoreLocation
 import Foundation
 
-public final class WeatherService: NSObject{
+public final class WeatherLocationHandler: NSObject{
     private let locationManager = CLLocationManager()
     private var completionHandler: ((WeatherModelCurrent, WeatherModelHourly, WeatherModelDaily) -> Void)? // optional property
     
     public override init(){
-        
+        super.init()
+        locationManager.delegate = self
     }
     
     public func loadWeatherData(_ completionHandler: @escaping((WeatherModelCurrent, WeatherModelHourly, WeatherModelDaily) -> Void)){
@@ -44,6 +45,25 @@ public final class WeatherService: NSObject{
                 self.completionHandler?(WeatherModelCurrent(response: response), WeatherModelHourly(response: response), WeatherModelDaily(response: response))
             }
         }.resume()
+    }
+}
+
+extension WeatherLocationHandler: CLLocationManagerDelegate{
+    public func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
+        guard let location = locations.first
+        else{
+            return
+        }
+        DataRequest(forCoordinates: location.coordinate)
+    }
+    public func locationManager(
+        _manager: CLLocationManager,
+        didFailWithError error: Error
+    ){
+        print("error: \(error.localizedDescription)")
     }
 }
 

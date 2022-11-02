@@ -15,14 +15,36 @@ public final class WeatherService: NSObject{
 }
 
 struct response{
-    let city: String
+    let latitude: Double
+    let longitude: Double
+    let current_weather: WeatherDataCurrent
+    let hourly_units: WeatherDataHourlyUnits
     let hourly: WeatherDataHourly
     let daily: WeatherDataDaily
 }
 
-struct WeatherDataHourly: Decodable{
+struct WeatherDataCurrent: Decodable{
+    let temperature: Float
     let weathercode: Int
+    let time: Date
+}
+
+struct WeatherDataHourlyUnits: Decodable{
+    let time: Date
     
+    let temperature_2m: String
+    
+    let rain: String
+    let showers: String
+    let snowfall: String
+    
+    let cloudcover: String
+    let cloudcover_low: String
+    let cloudcover_mid: String
+    let cloudcover_high: String
+}
+
+struct WeatherDataHourly: Decodable{
     let time: Date
     let temperature_2m: Float
     
@@ -30,11 +52,30 @@ struct WeatherDataHourly: Decodable{
     let showers: Float
     let snowfall: Float
     
-    let cloudcover: Float
-    let cloudcover_low: Float
-    let cloudcover_mid: Float
-    let cloudcover_high: Float
+    let weathercode: Int
+    
+    let cloudcover: Int
+    let cloudcover_low: Int
+    let cloudcover_mid: Int
+    let cloudcover_high: Int
 }
+
+struct WeatherDataDailyUnits: Decodable{
+    let time: Date
+    
+    let weathercode: Int
+    
+    let temperature_2m_max: String
+    let temperature_2m_min: String
+    
+    let sunrise: Date
+    let sunset: Date
+    
+    let rain_sum: String
+    let showers_sum: String
+    let snowfall_sum: String
+}
+
 
 struct WeatherDataDaily: Decodable{
     let weathercode: Int

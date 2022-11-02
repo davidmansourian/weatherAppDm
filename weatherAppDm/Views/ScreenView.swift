@@ -13,7 +13,7 @@ struct ScreenView: View {
             ZStack{
 //                LinearGradient(gradient: Gradient(colors:[.orange,.blue]), startPoint: UnitPoint(x:1.9, y: -0.05), endPoint: UnitPoint(x: 0.4, y: 1))
 //                    .edgesIgnoringSafeArea(.all)
-                LinearGradient(gradient: Gradient(colors:[.yellow,.orange,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
+                LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical){
                     VStack(alignment: .center, spacing: 15) {

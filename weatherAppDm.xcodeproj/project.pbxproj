@@ -18,7 +18,9 @@
 		DB0721A12912B9E4005C2C03 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A02912B9E4005C2C03 /* SearchBarView.swift */; };
 		DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A22912BB5C005C2C03 /* SearchResultView.swift */; };
 		DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A52912C710005C2C03 /* WeatherData.swift */; };
-		DB0721A92912CF3E005C2C03 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A82912CF3E005C2C03 /* WeatherModel.swift */; };
+		DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */; };
+		DB0721AD2912DA71005C2C03 /* WeatherModelHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AC2912DA71005C2C03 /* WeatherModelHourly.swift */; };
+		DB0721AF2912DA7C005C2C03 /* WeatherModelDaily.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AE2912DA7C005C2C03 /* WeatherModelDaily.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +36,9 @@
 		DB0721A02912B9E4005C2C03 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		DB0721A22912BB5C005C2C03 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		DB0721A52912C710005C2C03 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
-		DB0721A82912CF3E005C2C03 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelCurrent.swift; sourceTree = "<group>"; };
+		DB0721AC2912DA71005C2C03 /* WeatherModelHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelHourly.swift; sourceTree = "<group>"; };
+		DB0721AE2912DA7C005C2C03 /* WeatherModelDaily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelDaily.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +71,8 @@
 		DB07218229116A8B005C2C03 /* weatherAppDm */ = {
 			isa = PBXGroup;
 			children = (
-				DB0721A72912CF2C005C2C03 /* Data */,
 				DB07218329116A8B005C2C03 /* weatherAppDmApp.swift */,
+				DB0721A72912CF2C005C2C03 /* Data */,
 				DB07219329116F6A005C2C03 /* Models */,
 				DB07219229116F63005C2C03 /* ViewModels */,
 				DB07219129116F5E005C2C03 /* Views */,
@@ -110,7 +114,9 @@
 		DB07219329116F6A005C2C03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DB0721A82912CF3E005C2C03 /* WeatherModel.swift */,
+				DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */,
+				DB0721AC2912DA71005C2C03 /* WeatherModelHourly.swift */,
+				DB0721AE2912DA7C005C2C03 /* WeatherModelDaily.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,13 +201,15 @@
 			files = (
 				DB07219529117001005C2C03 /* ScreenView.swift in Sources */,
 				DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */,
+				DB0721AD2912DA71005C2C03 /* WeatherModelHourly.swift in Sources */,
+				DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */,
 				DB07218429116A8B005C2C03 /* weatherAppDmApp.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
-				DB0721A92912CF3E005C2C03 /* WeatherModel.swift in Sources */,
 				DB0721A12912B9E4005C2C03 /* SearchBarView.swift in Sources */,
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,
 				DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */,
+				DB0721AF2912DA7C005C2C03 /* WeatherModelDaily.swift in Sources */,
 				DB07219B29117623005C2C03 /* TodaysWeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

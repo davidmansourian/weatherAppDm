@@ -37,7 +37,7 @@ struct ScreenView: View {
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
                         Button {
-                            withAnimation(.linear(duration: 0.25)){
+                            withAnimation(.linear(duration: 0.2)){
                                 showSearchBar.toggle()
                             }
                         } label: {

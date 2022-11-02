@@ -17,6 +17,7 @@
 		DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */; };
 		DB0721A12912B9E4005C2C03 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A02912B9E4005C2C03 /* SearchBarView.swift */; };
 		DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A22912BB5C005C2C03 /* SearchResultView.swift */; };
+		DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A52912C710005C2C03 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysWeatherTextView.swift; sourceTree = "<group>"; };
 		DB0721A02912B9E4005C2C03 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		DB0721A22912BB5C005C2C03 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		DB0721A52912C710005C2C03 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		DB07219329116F6A005C2C03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DB0721A52912C710005C2C03 /* WeatherData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				DB0721A12912B9E4005C2C03 /* SearchBarView.swift in Sources */,
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,
+				DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */,
 				DB07219B29117623005C2C03 /* TodaysWeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

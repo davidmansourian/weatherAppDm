@@ -32,12 +32,12 @@ struct ScreenView: View {
                         
                     }
                 }
-                .blur(radius: showSearchBar ? 5 : 0)
+                .blur(radius: showSearchBar ? 6 : 0)
                 .padding(.top, 1)
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
                         Button {
-                            withAnimation(.linear(duration: 0.6)){
+                            withAnimation(.linear(duration: 0.25)){
                                 showSearchBar.toggle()
                             }
                         } label: {

@@ -23,6 +23,7 @@ struct ScreenView: View {
                         ForecastView()
                     }
                 }
+                .blur(radius: showSearchBar ? 5 : 0)
                 .padding(.top, 1)
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
@@ -36,13 +37,15 @@ struct ScreenView: View {
                                 .clipShape(Circle())
                         }
                     }
-                    ToolbarItemGroup(placement: .navigationBarLeading){
-                        NavigationLink(destination:{}){
-                            Image(systemName: "heart")
-                                .foregroundColor(Color.black)
-                                .padding(10)
-                                .background(Color.white.opacity(0.4))
-                                .clipShape(Circle())
+                    if !showSearchBar{
+                        ToolbarItemGroup(placement: .navigationBarLeading){
+                            NavigationLink(destination:{}){
+                                Image(systemName: "heart")
+                                    .foregroundColor(Color.black)
+                                    .padding(10)
+                                    .background(Color.white.opacity(0.4))
+                                    .clipShape(Circle())
+                            }
                         }
                     }
                     ToolbarItemGroup(placement: .principal){

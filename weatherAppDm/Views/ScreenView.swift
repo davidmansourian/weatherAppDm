@@ -10,6 +10,9 @@ import SwiftUI
 struct ScreenView: View {
     @State private var showSearchBar = false
     @State private var isLiked = false
+    
+    @ObservedObject var viewModelCurrent: WeatherViewModelCurrent
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -19,7 +22,7 @@ struct ScreenView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical){
                     VStack(alignment: .center, spacing: 15) {
-                        TodaysWeatherTextView()
+                        TodaysWeatherTextView(viewModelCurrent: WeatherViewModelCurrent(weatherLocationHandler: WeatherLocationHandler()))
                         TodaysWeatherView()
                         ForecastView()
                     }
@@ -87,7 +90,7 @@ struct ScreenView: View {
 
 struct ScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        ScreenView()
-    }
+        ScreenView(viewModelCurrent: WeatherViewModelCurrent(weatherLocationHandler: WeatherLocationHandler()))
+    } 
 }
 

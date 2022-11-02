@@ -11,7 +11,9 @@ import SwiftUI
 struct weatherAppDmApp: App {
     var body: some Scene {
         WindowGroup {
-            ScreenView()
+            let weatherLocationHandler = WeatherLocationHandler()
+            let viewModelCurrent = WeatherViewModelCurrent(weatherLocationHandler: weatherLocationHandler)
+            ScreenView(viewModelCurrent: viewModelCurrent)
         }
     }
 }

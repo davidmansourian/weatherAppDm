@@ -76,7 +76,7 @@ struct ScreenView: View {
                     }
                     ToolbarItemGroup(placement: .principal){
                         if showSearchBar{
-                            SearchView()
+                            SearchBarView()
                         }
                     } // if pressed then show bar with results and blur background view
                 }

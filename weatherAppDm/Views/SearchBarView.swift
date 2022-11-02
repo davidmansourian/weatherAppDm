@@ -1,13 +1,13 @@
 //
-//  SearchView.swift
+//  SearchBarView.swift
 //  weatherAppDm
 //
-//  Created by David on 2022-11-01.
+//  Created by David on 2022-11-02.
 //
 
 import SwiftUI
 
-struct SearchView: View {
+struct SearchBarView: View {
     @State var searchString: String = ""
     var body: some View {
         HStack{
@@ -27,8 +27,8 @@ struct SearchView: View {
     }
 }
 
-struct SearchView_Previews: PreviewProvider {
+struct SearchBarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchBarView()
     }
 }

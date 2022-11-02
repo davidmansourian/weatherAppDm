@@ -19,8 +19,6 @@
 		DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A22912BB5C005C2C03 /* SearchResultView.swift */; };
 		DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721A52912C710005C2C03 /* WeatherData.swift */; };
 		DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */; };
-		DB0721AD2912DA71005C2C03 /* WeatherModelHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AC2912DA71005C2C03 /* WeatherModelHourly.swift */; };
-		DB0721AF2912DA7C005C2C03 /* WeatherModelDaily.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AE2912DA7C005C2C03 /* WeatherModelDaily.swift */; };
 		DB0721B32912E60E005C2C03 /* WeatherViewModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721B22912E60E005C2C03 /* WeatherViewModelCurrent.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +36,6 @@
 		DB0721A22912BB5C005C2C03 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		DB0721A52912C710005C2C03 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelCurrent.swift; sourceTree = "<group>"; };
-		DB0721AC2912DA71005C2C03 /* WeatherModelHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelHourly.swift; sourceTree = "<group>"; };
-		DB0721AE2912DA7C005C2C03 /* WeatherModelDaily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelDaily.swift; sourceTree = "<group>"; };
 		DB0721B22912E60E005C2C03 /* WeatherViewModelCurrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelCurrent.swift; sourceTree = "<group>"; };
 		DB0721B42912ED0B005C2C03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,8 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */,
-				DB0721AC2912DA71005C2C03 /* WeatherModelHourly.swift */,
-				DB0721AE2912DA7C005C2C03 /* WeatherModelDaily.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,7 +201,6 @@
 				DB07219529117001005C2C03 /* ScreenView.swift in Sources */,
 				DB0721B32912E60E005C2C03 /* WeatherViewModelCurrent.swift in Sources */,
 				DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */,
-				DB0721AD2912DA71005C2C03 /* WeatherModelHourly.swift in Sources */,
 				DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */,
 				DB07218429116A8B005C2C03 /* weatherAppDmApp.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
@@ -215,7 +208,6 @@
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,
 				DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */,
-				DB0721AF2912DA7C005C2C03 /* WeatherModelDaily.swift in Sources */,
 				DB07219B29117623005C2C03 /* TodaysWeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,7 +336,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"weatherAppDm/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "weatherAppDm/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = weatherAppDm/Info.plist;
@@ -374,7 +366,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"weatherAppDm/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "weatherAppDm/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = weatherAppDm/Info.plist;

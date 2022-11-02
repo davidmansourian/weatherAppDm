@@ -15,17 +15,17 @@ class WeatherViewModelCurrent: ObservableObject{
     
     public let weatherLocationHandler: WeatherLocationHandler
     
-    public init(weatherLocationHandler: WeatherLocationHandler){
+    init(weatherLocationHandler: WeatherLocationHandler){
         self.weatherLocationHandler = weatherLocationHandler
     }
     
-    public func refresh(){
-        weatherLocationHandler.loadWeatherData{ weatherCurrent, weatherHourly, weatherDaily in
+     func refresh(){
+        weatherLocationHandler.loadWeatherData{ weatherCurrent in
             DispatchQueue.main.async {
                 self.city = "Tjena"
-                self.temperature = weatherCurrent.temperature
-                self.temperatureHigh = weatherCurrent.temperature_high
-                self.temperatureLow = weatherCurrent.temperature_low
+                self.temperature = "\(weatherCurrent.temperature)"
+//                self.temperatureHigh = weatherCurrent.temperature_high
+//                self.temperatureLow = weatherCurrent.temperature_low
             }
         }
     }

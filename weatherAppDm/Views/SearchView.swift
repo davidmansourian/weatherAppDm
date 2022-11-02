@@ -9,9 +9,13 @@ import SwiftUI
 
 struct SearchView: View {
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors:[.orange,.blue]), startPoint: UnitPoint(x:1.9, y: -0.05), endPoint: UnitPoint(x: 0.4, y: 1))
-                .edgesIgnoringSafeArea(.all)
+        VStack{
+            Rectangle()
+                .fill(Color.white)
+                .frame(maxWidth: .infinity, maxHeight: 40)
+                .cornerRadius(20)
+                .shadow(radius: 5)
+                .opacity(0.5)
         }
     }
 }

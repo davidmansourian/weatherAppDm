@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScreenView: View {
-    @State private var showSearchBar = false
+    @State public var showSearchBar = false
     var body: some View {
         NavigationStack{
             ZStack{
@@ -17,10 +17,18 @@ struct ScreenView: View {
                 LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical){
-                    VStack(alignment: .center, spacing: 15) {
-                        TodaysWeatherTextView()
-                        TodaysWeatherView()
-                        ForecastView()
+                        VStack(alignment: .center, spacing: 15) {
+                            TodaysWeatherTextView()
+                            TodaysWeatherView()
+                            ForecastView()
+                    }
+                }
+                .onTapGesture {
+                    if showSearchBar{
+                        withAnimation(.linear(duration: 0.2)){
+                            showSearchBar.toggle()
+                        }
+                        
                     }
                 }
                 .blur(radius: showSearchBar ? 5 : 0)
@@ -28,13 +36,17 @@ struct ScreenView: View {
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
                         Button {
-                            showSearchBar.toggle()
+                            withAnimation(.linear(duration: 0.6)){
+                                showSearchBar.toggle()
+                            }
                         } label: {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(Color.black)
-                                .padding(10)
-                                .background(Color.white.opacity(0.4))
-                                .clipShape(Circle())
+                            if !showSearchBar{
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(Color.black)
+                                    .padding(10)
+                                    .background(Color.white.opacity(0.4))
+                                    .clipShape(Circle())
+                            }
                         }
                     }
                     if !showSearchBar{

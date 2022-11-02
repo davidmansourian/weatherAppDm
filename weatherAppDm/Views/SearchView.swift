@@ -20,6 +20,7 @@ struct SearchView: View {
             Rectangle()
                 .fill(Color.white)
                 .frame(maxWidth: .infinity, maxHeight: 40)
+                .transition(.asymmetric(insertion: .scale, removal: .opacity))
                 .cornerRadius(20)
                 .shadow(radius: 8)
                 .opacity(0.2))

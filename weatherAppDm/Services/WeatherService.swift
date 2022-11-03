@@ -13,7 +13,9 @@ class APILoader: ObservableObject{
     private var cancellable: Cancellable?
     private let jsonDecoder = JSONDecoder()
     
-    @Published var weather: CurrentWeather?
+    @Published var currentWeather: CurrentWeather?
+    @Published var hourlyWeather: HourlyWeather?
+    @Published var dailyWeather: DailyWeather?
 
     
     func getWeather(){
@@ -36,7 +38,9 @@ class APILoader: ObservableObject{
             .sink(receiveCompletion: { completion in
                 print(completion)
             }, receiveValue: {[weak self] data in
-                self?.weather = data.current_weather
+                self?.currentWeather = data.current_weather
+                self?.hourlyWeather = data.hourly
+                self?.dailyWeather = data.daily
             })
     }
 }

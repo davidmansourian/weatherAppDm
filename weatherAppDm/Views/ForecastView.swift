@@ -17,6 +17,8 @@ struct Forecast: Hashable{
 
 struct ForecastView: View {
     // viewModel should send data to here
+    @StateObject private var weatherModel = APILoader()
+    
     @State var days = [Forecast(id: 0, temperature: "10°", image: "cloud", day: "Today"),
                        Forecast(id: 1, temperature: "10°", image: "cloud", day: "Tue"),
                        Forecast(id: 2, temperature: "10°", image: "cloud", day: "Wed"),

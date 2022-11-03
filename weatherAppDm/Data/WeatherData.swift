@@ -15,6 +15,8 @@ import Combine
 
 struct WeatherResponse: Decodable{
     let current_weather: CurrentWeather
+    let hourly: HourlyWeather
+    let daily: DailyWeather
 }
 
 struct CurrentWeather: Decodable{
@@ -22,4 +24,24 @@ struct CurrentWeather: Decodable{
     let winddirection: Int
     let weathercode: Int
     let time: String
+}
+
+struct HourlyWeather: Decodable{
+    let time: [String]
+    let temperature_2m: [Float]
+    let rain: [Float]
+    let showers: [Float]
+    let snowfall: [Float]
+    let weathercode: [Int]
+}
+
+struct DailyWeather: Decodable{
+    let time: [String]
+    let weathercode: [Int]
+    let temperature_2m_max: [Float]
+    let temperature_2m_min: [Float]
+    let sunrise: [String]
+    let rain_sum: [Float]
+    let showers_sum: [Float]
+    let snowfall_sum: [Float]
 }

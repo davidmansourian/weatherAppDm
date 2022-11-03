@@ -21,6 +21,8 @@
 		DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721AA2912DA5E005C2C03 /* WeatherModelCurrent.swift */; };
 		DB0721B32912E60E005C2C03 /* WeatherViewModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0721B22912E60E005C2C03 /* WeatherViewModelCurrent.swift */; };
 		DB2A4CBB29140CA7008F52FB /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A4CBA29140CA7008F52FB /* WeatherService.swift */; };
+		DB2A4CBF2914353A008F52FB /* WeatherCodesTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */; };
+		DB2A4CC12914432A008F52FB /* WeatherViewModelHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A4CC02914432A008F52FB /* WeatherViewModelHourly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		DB0721B22912E60E005C2C03 /* WeatherViewModelCurrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelCurrent.swift; sourceTree = "<group>"; };
 		DB0721B42912ED0B005C2C03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DB2A4CBA29140CA7008F52FB /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCodesTranslation.swift; sourceTree = "<group>"; };
+		DB2A4CC02914432A008F52FB /* WeatherViewModelHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelHourly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0721B22912E60E005C2C03 /* WeatherViewModelCurrent.swift */,
+				DB2A4CC02914432A008F52FB /* WeatherViewModelHourly.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0721A52912C710005C2C03 /* WeatherData.swift */,
+				DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -214,8 +220,10 @@
 				DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */,
 				DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */,
 				DB2A4CBB29140CA7008F52FB /* WeatherService.swift in Sources */,
+				DB2A4CBF2914353A008F52FB /* WeatherCodesTranslation.swift in Sources */,
 				DB07218429116A8B005C2C03 /* weatherAppDmApp.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
+				DB2A4CC12914432A008F52FB /* WeatherViewModelHourly.swift in Sources */,
 				DB0721A12912B9E4005C2C03 /* SearchBarView.swift in Sources */,
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,

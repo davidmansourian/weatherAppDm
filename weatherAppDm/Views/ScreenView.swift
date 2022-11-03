@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+
 struct ScreenView: View {
     @State private var showSearchBar = false
     @State private var isLiked = false
-    
+    @StateObject private var weatherModel = APILoader()
+
     var body: some View {
         NavigationStack{
             ZStack{
@@ -81,6 +83,8 @@ struct ScreenView: View {
                         }
                     } // if pressed then show bar with results and blur background view
                 }
+            }.onAppear(){
+                weatherModel.getWeather()
             }
         }
     }

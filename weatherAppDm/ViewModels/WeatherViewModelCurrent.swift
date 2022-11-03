@@ -7,9 +7,15 @@
 
 import Foundation
 
+
 class WeatherViewModelCurrent: ObservableObject{
     @Published var city: String = "Jönköping"
     @Published var temperature: String = "--"
     @Published var temperatureHigh: String = "--"
     @Published var temperatureLow: String = "--"
+    
+    
+    
 }
+
+

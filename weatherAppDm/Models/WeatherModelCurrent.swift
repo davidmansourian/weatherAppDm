@@ -9,6 +9,10 @@ import Foundation
 
 public struct WeatherModelCurrent{
     let temperature: String
-//    let temperature_high: String
-//    let temperature_low: String
+    let time: String
+    
+    init(response: WeatherResponse){
+        temperature = "\(Float(response.current_weather.temperature))"
+        time = response.current_weather.time
+    }
 }

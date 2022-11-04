@@ -25,5 +25,13 @@ class WeatherViewModelHourly: ObservableObject{
         return TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? ""
     }
     
+    public func getTodaysDate() -> (String){
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyy-MM-dd"
+        return dateFormatter.string(from: date)
+        
+    }
     
+
 }

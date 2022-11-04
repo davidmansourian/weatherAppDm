@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct TodaysWeatherView: View {
+    
+    func getTemperatureForI() -> ([Int]){
+        var temperatures: [Int] = []
+        for temp in weatherModel.hourlyWeather?.temperature_2m ?? [0]{
+            print("testing temp float: " + "\(temp)")
+            let temperature: Int = Int(Float(temp))
+            print("testing temp: " + "\(temperature)")
+            temperatures.append(temperature)
+        }
+        return temperatures
+    }
+    
+    @StateObject private var weatherModel = APILoader()
     var times = ["Now", "7 am", "8 am", "9 am", "10 am", "11 am", "12 am", "13 am", "14 am", "15 am"]
     var grads = ["10"]
     var body: some View {
+        var temperatures: [Int] = getTemperatureForI()
+        
         VStack(spacing: 10){
             ZStack{
                 Rectangle()
@@ -29,23 +44,32 @@ struct TodaysWeatherView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(spacing: 15){
                         HStack(spacing: 30) {
-                            ForEach(times, id: \.self) { time in
-                                Text(time)
-                                    .frame(width: 46, height: 30)
-                                    .bold()
-                                    .font(.system(size: 13))
-                                    .foregroundColor(Color.white)
-                            }
+//                            ForEach(times, id: \.self) { time in
+//                                Text(time)
+//                                    .frame(width: 46, height: 30)
+//                                    .bold()
+//                                    .font(.system(size: 13))
+//                                    .foregroundColor(Color.white)
+//                            }
+                            
+//                            ForEach(theDate, id: \.self){ time in
+//                                Text((time?[12] ?? "") + (time?[13] ?? ""))
+//                                    .frame(width: 46, height:30)
+//                                    .bold()
+//                                    .font(.system(size: 13))
+//                                    .foregroundColor(Color.white)
+//                            }
                         }
-                        HStack(spacing: 54){
-                            ForEach(1...10, id: \.self){ i in
-                                Image(systemName: "cloud")
+                        HStack(spacing: 49.4){
+                            ForEach(0...19, id: \.self){ i in
+                                let weatherCode: Int = weatherModel.hourlyWeather?.weathercode[i] ?? 0
+                                Image(systemName: TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? "")
                                     .foregroundColor(Color.white)
                             } // ska hämta data från viewmodel
                         }
-                        HStack(spacing: 50){
-                            ForEach(1...10, id: \.self){ i in
-                                Text("10°")
+                        HStack(spacing: 54){
+                            ForEach(temperatures.prefix(20), id: \.self){ i in
+                                Text("\(i)°")
                                     .foregroundColor(Color.white)
                             } // ska hämta data från viewmodel
                         }
@@ -56,6 +80,8 @@ struct TodaysWeatherView: View {
                 .padding(10)
                 .offset(y: 20)
             }
+        }.onAppear{
+            weatherModel.getWeather()
         }
     }
 }

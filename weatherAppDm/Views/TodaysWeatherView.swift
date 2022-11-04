@@ -7,11 +7,7 @@
 
 import SwiftUI
 
-extension StringProtocol {
-    subscript(offset: Int) -> Character {
-        self[index(startIndex, offsetBy: offset)]
-    }
-}
+
 
 struct TodaysWeatherView: View {
     
@@ -34,10 +30,20 @@ struct TodaysWeatherView: View {
         return times
     }
     
+    func getCurrentTime() -> (String){ // returns the current hour so that the time forecast can show relevant times
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YY, MMM d, hh:mm"
+        let dateString = dateFormatter.string(from: date).dropFirst(10).dropLast(3)
+        return String(dateString)
+    }
+    
+    
     @StateObject private var weatherModel = APILoader()
     var body: some View {
         let temperatures: [Int] = getTemperatureForI()
         let times: [String] = getTimeForI()
+        let theIndex = 0
         
         VStack(spacing: 10){
             ZStack{
@@ -59,14 +65,21 @@ struct TodaysWeatherView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(spacing: 15){
                         HStack(spacing: 26.3) {
-                            ForEach(times.prefix(20), id: \.self) { time in
-                                let desiredStringOne = time.suffix(1)
+                            ForEach(times, id: \.self){ time in
                                 let desiredStringTwo = time.dropFirst(11).dropLast(3)
-                                Text(desiredStringTwo)
+                                if desiredStringTwo == getCurrentTime(){
+                                    // need to find solution that finds index for first matching hour
+                                    // so that I know what time it is and how many hours in advance
+                                    // i should show
+                                }
+                            }
+                            ForEach(times.prefix(20), id: \.self) { time in
+                                let desiredStringTwo = time.dropFirst(11).dropLast(3)
+                                Text(getCurrentTime())
                                     .frame(width: 46, height: 30)
                                     .bold()
                                     .font(.system(size: 13))
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(Color.white) // add sunset and sunrise to distinct days
                             }
                             
 //                            ForEach(times.prefix(20), id: \.self){ time in

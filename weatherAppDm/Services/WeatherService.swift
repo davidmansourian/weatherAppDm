@@ -7,18 +7,23 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 class APILoader: ObservableObject{
-    private let urlString = "https://api.open-meteo.com/v1/forecast?latitude=57.78&longitude=14.45&hourly=temperature_2m,rain,showers,snowfall,weathercode,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum&current_weather=true&timezone=auto"
+    
     private var cancellable: Cancellable?
     private let jsonDecoder = JSONDecoder()
+    private let locationManager = LocationManager()
     
     @Published var currentWeather: CurrentWeather?
     @Published var hourlyWeather: HourlyWeather?
     @Published var dailyWeather: DailyWeather?
-
+    @Published var latitude = LocationManager().userLocation?.latitude
+    @Published var longitude = LocationManager().userLocation?.longitude
+    
     
     func getWeather(){
+        let urlString = "https://api.open-meteo.com/v1/forecast?latitude=\(latitude ?? 00)&longitude=\(longitude ?? 00)&hourly=temperature_2m,rain,showers,snowfall,weathercode,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum&current_weather=true&timezone=auto"
         guard let url = URL(string: urlString )
         else{
             print("Invalid URL")
@@ -41,6 +46,8 @@ class APILoader: ObservableObject{
                 self?.currentWeather = data.current_weather
                 self?.hourlyWeather = data.hourly
                 self?.dailyWeather = data.daily
+                self?.latitude = self?.latitude
+                self?.longitude = self?.longitude
             })
     }
 }

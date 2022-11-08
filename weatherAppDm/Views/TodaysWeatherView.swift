@@ -36,8 +36,7 @@ struct TodaysWeatherView: View {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YY, MMM d, HH:mm"
-        let dateString = dateFormatter.string(from: date)
-        print("dateString: " + String(dateString))
+        let dateString = dateFormatter.string(from: date).dropFirst(12).dropLast(3)
         return String(dateString)
     }
     
@@ -58,7 +57,6 @@ struct TodaysWeatherView: View {
         var arr: [String] = []
         for time in times.dropFirst(getIndexForHour()){
             if arr.count < 20{
-                print(time)
                 arr.append(time)
             }
             else{ break }
@@ -67,6 +65,7 @@ struct TodaysWeatherView: View {
     }
 
     @StateObject private var weatherModel = APILoader()
+    @StateObject private var locationManager = LocationManager()
     var body: some View {
         VStack(spacing: 10){
             ZStack{
@@ -87,9 +86,17 @@ struct TodaysWeatherView: View {
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(spacing: 15){
-                        HStack(spacing: 26.5) {// Hello
+                        HStack(spacing: 22) {// Hello
                             ForEach(getAccurateIndexedTimeArray(), id: \.self) { time in
                                 let desiredStringTwo = time.dropFirst(11).dropLast(3)
+                                if(desiredStringTwo == getCurrentTime())
+                                {
+                                    Text("Now")
+                                        .frame(width: 46, height: 30)
+                                        .bold()
+                                        .font(.system(size: 13))
+                                        .foregroundColor(Color.white)
+                                }
                                 Text(desiredStringTwo)
                                     .frame(width: 46, height: 30)
                                     .bold()
@@ -119,8 +126,9 @@ struct TodaysWeatherView: View {
                 .padding(10)
                 .offset(y: 20)
             }
-        }.onAppear{
+        }.onAppear(){
             weatherModel.getWeather()
+
         }
     }
 }

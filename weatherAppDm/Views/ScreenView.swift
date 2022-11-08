@@ -8,11 +8,13 @@
 import SwiftUI
 
 
+
 struct ScreenView: View {
     @State private var showSearchBar = false
     @State private var isLiked = false
     @StateObject private var weatherModel = APILoader()
-
+    @StateObject var locationManager = LocationManager()
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -22,6 +24,9 @@ struct ScreenView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical){
                     VStack(alignment: .center, spacing: 15) {
+                        if let location = locationManager.userLocation {
+                            Text("Your location: \(location.latitude), \(location.longitude)")
+                        }
                         TodaysWeatherTextView()
                         TodaysWeatherView()
                         ForecastView()
@@ -85,6 +90,7 @@ struct ScreenView: View {
                 }
             }.onAppear(){
                 weatherModel.getWeather()
+                
             }
         }
     }
@@ -93,6 +99,6 @@ struct ScreenView: View {
 struct ScreenView_Previews: PreviewProvider {
     static var previews: some View {
         ScreenView()
-    } 
+    }
 }
 

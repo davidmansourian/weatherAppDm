@@ -23,6 +23,9 @@
 		DB2A4CBB29140CA7008F52FB /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A4CBA29140CA7008F52FB /* WeatherService.swift */; };
 		DB2A4CBF2914353A008F52FB /* WeatherCodesTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */; };
 		DB2A4CC12914432A008F52FB /* WeatherViewModelHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A4CC02914432A008F52FB /* WeatherViewModelHourly.swift */; };
+		DB4F7CDF29192053006833DF /* WeatherViewModelDaily.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CDE29192053006833DF /* WeatherViewModelDaily.swift */; };
+		DB4F7CE129192412006833DF /* DailyForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CE029192412006833DF /* DailyForecastData.swift */; };
+		DB4F7CE3291951EC006833DF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CE2291951EC006833DF /* LocationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		DB2A4CBA29140CA7008F52FB /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCodesTranslation.swift; sourceTree = "<group>"; };
 		DB2A4CC02914432A008F52FB /* WeatherViewModelHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelHourly.swift; sourceTree = "<group>"; };
+		DB4F7CDE29192053006833DF /* WeatherViewModelDaily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelDaily.swift; sourceTree = "<group>"; };
+		DB4F7CE029192412006833DF /* DailyForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastData.swift; sourceTree = "<group>"; };
+		DB4F7CE2291951EC006833DF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0721B22912E60E005C2C03 /* WeatherViewModelCurrent.swift */,
+				DB4F7CDE29192053006833DF /* WeatherViewModelDaily.swift */,
 				DB2A4CC02914432A008F52FB /* WeatherViewModelHourly.swift */,
 			);
 			path = ViewModels;
@@ -133,6 +140,7 @@
 			children = (
 				DB0721A52912C710005C2C03 /* WeatherData.swift */,
 				DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */,
+				DB4F7CE029192412006833DF /* DailyForecastData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -141,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				DB2A4CBA29140CA7008F52FB /* WeatherService.swift */,
+				DB4F7CE2291951EC006833DF /* LocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -217,9 +226,11 @@
 			files = (
 				DB07219529117001005C2C03 /* ScreenView.swift in Sources */,
 				DB0721B32912E60E005C2C03 /* WeatherViewModelCurrent.swift in Sources */,
+				DB4F7CDF29192053006833DF /* WeatherViewModelDaily.swift in Sources */,
 				DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */,
 				DB0721AB2912DA5E005C2C03 /* WeatherModelCurrent.swift in Sources */,
 				DB2A4CBB29140CA7008F52FB /* WeatherService.swift in Sources */,
+				DB4F7CE129192412006833DF /* DailyForecastData.swift in Sources */,
 				DB2A4CBF2914353A008F52FB /* WeatherCodesTranslation.swift in Sources */,
 				DB07218429116A8B005C2C03 /* weatherAppDmApp.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
@@ -228,6 +239,7 @@
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,
 				DB0721A62912C710005C2C03 /* WeatherData.swift in Sources */,
+				DB4F7CE3291951EC006833DF /* LocationService.swift in Sources */,
 				DB07219B29117623005C2C03 /* TodaysWeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

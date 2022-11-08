@@ -10,6 +10,8 @@ import SwiftUI
 
 
 class WeatherViewModelCurrent: ObservableObject{
+
+    
     private var weatherModel = APILoader()
     @Published var temperature: Float = 0
     @Published var weathercode: Int = 0

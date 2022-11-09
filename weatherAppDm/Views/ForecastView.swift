@@ -120,7 +120,7 @@ struct ForecastView: View {
     
     // viewModel should send data to here
     @StateObject private var weatherModel = APILoader()
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = LocationManager.shared
     // Below function is created by Ahmad F and is used from https://stackoverflow.com/questions/49387344/how-to-get-an-array-of-days-between-two-dates-in-swift
 
     let columns = [GridItem(.flexible()),
@@ -159,11 +159,13 @@ struct ForecastView: View {
                             .foregroundColor(Color.white)
                         Text(getDailyAvgTemp()[day])
                             .foregroundColor(Color.white)
+                        
 //                        Divider() LazyVGrid divider multiple column foreach
                     }
                 }
             }
-        }.onAppear(){
+        }
+        .onAppear(){
             weatherModel.getWeather()
                 
         }

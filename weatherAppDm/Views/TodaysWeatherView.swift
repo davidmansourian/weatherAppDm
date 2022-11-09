@@ -5,16 +5,55 @@
 //  Created by David on 2022-11-01.
 //
 
+struct GridStack<Content: View>: View {
+    let rows: Int
+    let columns: Int
+    let content: (Int, Int) -> Content
+    
+    var body: some View {
+        VStack {
+            ForEach(0 ..< rows, id: \.self) { row in
+                HStack {
+                    ForEach(0 ..< columns, id: \.self) { column in
+                        content(row, column)
+                    }
+                }
+            }
+        }
+    }
+    
+    init(rows: Int, columns: Int, @ViewBuilder content: @escaping (Int, Int) -> Content) {
+        self.rows = rows
+        self.columns = columns
+        self.content = content
+    }
+}
+
 import SwiftUI
 
+func gridCreator() -> [GridItem]{
+    var columns: [GridItem] = []
+    for _ in 0...2{
+        columns.append(GridItem(.flexible()))
+    }
+    return columns
+}
 
 
 struct TodaysWeatherView: View {
     
+    func gridCreator() -> [GridItem]{
+        var columns: [GridItem] = []
+        for _ in 0...20{
+            columns.append(GridItem(.flexible()))
+        }
+        return columns
+    }
+    
     func getTemperatureForI() -> ([Int]){
         var temperatures: [Int] = []
         for temp in weatherModel.hourlyWeather?.temperature_2m.dropFirst(getIndexForHour()) ?? [0]{
-            if temperatures.count < 20{
+            if temperatures.count < 21{
                 let temperature: Int = Int(Float(temp))
                 temperatures.append(temperature)
             }
@@ -63,72 +102,65 @@ struct TodaysWeatherView: View {
         }
         return arr
     }
-
+    
     @StateObject private var weatherModel = APILoader()
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = LocationManager.shared
     var body: some View {
-        VStack(spacing: 10){
+        VStack(){
             ZStack{
-                Rectangle()
-                    .fill(Color.white.opacity(0.2))
-                    .frame(width: 365, height: 200)
-                    .cornerRadius(15)
-                Divider()
-                    .frame(width: 365)
-                    .offset(y: -35)
-                HStack {
-                    Text("Wheather info text from ViewModel. Bla Bla Bla fasdf") // create a function that
-                    // calculates an average on the weathercode. Make a scoring system that mentions the
-                    // most frequent code in words first, and then the second. E.g. Mostly overcast, some sun.
-                        .offset(y: -70)
-                        .foregroundColor(Color.white)
-                        .font(Font.footnote)
-                }
+                /*Rectangle()
+                 .fill(Color.white.opacity(0.2))
+                 .frame(width: 365, height: 200)
+                 .cornerRadius(15)*/
                 ScrollView(.horizontal, showsIndicators: false) {
-                    VStack(spacing: 15){
-                        HStack(spacing: 22) {// Hello
+                    Grid{
+                        GridRow{
                             ForEach(getAccurateIndexedTimeArray(), id: \.self) { time in
                                 let desiredStringTwo = time.dropFirst(11).dropLast(3)
                                 if(desiredStringTwo == getCurrentTime())
                                 {
                                     Text("Now")
-                                        .frame(width: 46, height: 30)
                                         .bold()
                                         .font(.system(size: 13))
                                         .foregroundColor(Color.white)
                                 }
                                 Text(desiredStringTwo)
-                                    .frame(width: 46, height: 30)
                                     .bold()
                                     .font(.system(size: 13))
                                     .foregroundColor(Color.white) // add sunset and sunrise to distinct days
                             }
                         }
-                        HStack(spacing: 49.2){
+                        .padding()
+                        GridRow{
                             let begin = getIndexForHour()
-                            let end = getIndexForHour() + 19
+                            let end = getIndexForHour() + 20
                             ForEach(begin...end, id: \.self){ i in
                                 let weatherCode: Int = weatherModel.hourlyWeather?.weathercode[i] ?? 0
                                 Image(systemName: TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? "")
                                     .foregroundColor(Color.white)
                             } // ska hämta data från viewmodel
                         }
-                        HStack(spacing: 53.8){
+                        .padding()
+                        GridRow{
                             ForEach(getTemperatureForI(), id: \.self){ i in
                                 Text("\(i)°")
                                     .foregroundColor(Color.white)
                             } // ska hämta data från viewmodel
                         }
+                        .padding()
                     }
                 }
-                .background(Color.gray.opacity(0))
-                .cornerRadius(10)
-                .padding(10)
-                .offset(y: 20)
+                .background(
+                    Rectangle()
+                        .fill(Color.white.opacity(0.2))
+                )
+                //.background(Color.gray.opacity(0))
+                .cornerRadius(15)
+                .padding()
             }
         }.onAppear(){
             weatherModel.getWeather()
-
+            
         }
     }
 }

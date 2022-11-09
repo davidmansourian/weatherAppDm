@@ -13,16 +13,45 @@ class APILoader: ObservableObject{
     
     private var cancellable: Cancellable?
     private let jsonDecoder = JSONDecoder()
-    private let locationManager = LocationManager()
-    
+    private var locationToken: Cancellable?
     @Published var currentWeather: CurrentWeather?
     @Published var hourlyWeather: HourlyWeather?
     @Published var dailyWeather: DailyWeather?
-    @Published var latitude = LocationManager().userLocation?.latitude
-    @Published var longitude = LocationManager().userLocation?.longitude
+    @Published var latitude: Double?
+    @Published var longitude: Double?
+    let geoCoder = CLGeocoder()
+    var location = CLLocation()
+    var cityName: String = "-"
     
+    init(){
+        locationToken = LocationManager.shared.$userLocation
+            .print("debugging")
+            .sink(receiveCompletion: { completion in
+                print("Has completed", completion)
+            }, receiveValue: { [weak self] location in
+                print("hej")
+                if LocationManager.shared.hasUpdatedLocation{
+                    self?.latitude = location?.latitude
+                    self?.longitude = location?.longitude
+                    self?.getCityName()
+                    self?.getWeather()
+                }
+            })
+        }
+    
+    func getCityName(){
+        location = CLLocation(latitude: latitude ?? 0, longitude: longitude ?? 0)
+        print("vasdadu")
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
+            for placemark in placemarks ?? []{
+                if let city = placemark.locality { self.cityName = city}
+            }
+        })
+    }
     
     func getWeather(){
+        print("cityname: " + cityName)
+        print("latitude:  \(latitude)" + " longitude: \(longitude)")
         let urlString = "https://api.open-meteo.com/v1/forecast?latitude=\(latitude ?? 00)&longitude=\(longitude ?? 00)&hourly=temperature_2m,rain,showers,snowfall,weathercode,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum&current_weather=true&timezone=auto"
         guard let url = URL(string: urlString )
         else{
@@ -46,8 +75,7 @@ class APILoader: ObservableObject{
                 self?.currentWeather = data.current_weather
                 self?.hourlyWeather = data.hourly
                 self?.dailyWeather = data.daily
-                self?.latitude = self?.latitude
-                self?.longitude = self?.longitude
+                
             })
     }
 }

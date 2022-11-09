@@ -13,7 +13,8 @@ struct ScreenView: View {
     @State private var showSearchBar = false
     @State private var isLiked = false
     @StateObject private var weatherModel = APILoader()
-    @StateObject var locationManager = LocationManager()
+    @StateObject var locationManager = LocationManager.shared
+    
     
     var body: some View {
         NavigationStack{
@@ -88,9 +89,14 @@ struct ScreenView: View {
                         }
                     } // if pressed then show bar with results and blur background view
                 }
-            }.onAppear(){
+            }
+            .onAppear(){
+                weatherModel.getCityName()
                 weatherModel.getWeather()
-                
+            }
+            .refreshable {
+                locationManager.updateLocation()
+                //weatherModel.getWeather()
             }
         }
     }

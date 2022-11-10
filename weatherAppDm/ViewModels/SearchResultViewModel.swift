@@ -14,6 +14,13 @@ import MapKit
 
 class SearchResultViewModel : ObservableObject {
     @Published private var coordinate : CLLocationCoordinate2D?
+    @Published var chosenLocation: CLLocationCoordinate2D
+    static let shared = SearchResultViewModel(chosenLocation: CLLocationCoordinate2D())
+    
+    init(chosenLocation: CLLocationCoordinate2D) {
+        self.chosenLocation = chosenLocation
+    }
+    
     
     func getLocation(location: MKLocalSearchCompletion) -> CLLocationCoordinate2D{
         let searchRequest = MKLocalSearch.Request(completion: location)
@@ -25,4 +32,5 @@ class SearchResultViewModel : ObservableObject {
         }
         return self.coordinate ?? CLLocationCoordinate2D()
     }
+    
 }

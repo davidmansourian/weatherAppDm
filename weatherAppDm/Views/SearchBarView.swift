@@ -11,6 +11,7 @@ import MapKit
 
 struct SearchBarView: View {
     @StateObject private var mapSearch = MapSearch()
+    
     var body: some View {
         VStack{
             HStack{

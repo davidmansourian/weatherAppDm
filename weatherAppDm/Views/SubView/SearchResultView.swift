@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import CoreLocation
+
 
 struct SearchResultView: View {
+    @StateObject var weatherModel = APILoader()
     @StateObject private var mapSearch = MapSearch()
     @StateObject var locationManager = LocationManager.shared
-    @StateObject var searchResult = SearchResultViewModel()
+    @ObservedObject var searchResult = SearchResultViewModel.shared
+    @State var chosenResult = CLLocationCoordinate2D()
     @State private var showResult = false
     @State private var offset: CGFloat = 200.0
     var body: some View {
@@ -23,6 +27,10 @@ struct SearchResultView: View {
                         ForEach(mapSearch.locationResults, id: \.self) { location in
                             Button(action: {
                                 print(searchResult.getLocation(location: location),
+                                      chosenResult = searchResult.getLocation(location: location),
+                                      self.searchResult.chosenLocation = chosenResult,
+                                      print("chosen result: ", chosenResult),
+                                      print("chosen location from class: ", self.searchResult.chosenLocation),
                                       showResult = true
                                       
                                 )}

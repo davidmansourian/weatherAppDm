@@ -12,6 +12,7 @@ import SwiftUI
 struct ScreenView: View {
     @State private var showSearchBar = false
     @State private var isLiked = false
+    @State private var selection: String? = nil
     @StateObject private var weatherModel = APILoader()
     @StateObject var locationManager = LocationManager.shared
     
@@ -25,9 +26,6 @@ struct ScreenView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical){
                     VStack(alignment: .center, spacing: 15) {
-                        if let location = locationManager.userLocation {
-                            Text("Your location: \(location.latitude), \(location.longitude)")
-                        }
                         TodaysWeatherTextView()
                         TodaysWeatherView()
                         ForecastView()
@@ -41,8 +39,9 @@ struct ScreenView: View {
                         
                     }
                 }
-                .blur(radius: showSearchBar ? 6 : 0)
-                .padding(.top, 1)
+               .blur(radius: showSearchBar ? 10 : 0)
+               .scrollDisabled(showSearchBar ? true : false)
+               .padding(.top, 1)
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
                         Button {
@@ -59,44 +58,55 @@ struct ScreenView: View {
                             }
                         }
                     }
-                    if !showSearchBar{
+//                    if !showSearchBar{
+//                        ToolbarItemGroup(placement: .navigationBarLeading){
+//                            Button {
+//                                withAnimation(.easeInOut(duration: 0.1)){
+//                                    isLiked.toggle()
+//                                }
+//                            } label: {
+//                                if isLiked{
+//                                    Image(systemName: "heart.fill")
+//                                        .foregroundColor(Color.red)
+//                                        .padding(10)
+//                                        .background(Color.white.opacity(0.4))
+//                                        .clipShape(Circle())
+//                                }
+//                                else{
+//                                    Image(systemName: "heart")
+//                                        .foregroundColor(Color.black)
+//                                        .padding(10)
+//                                        .background(Color.white.opacity(0.4))
+//                                        .clipShape(Circle())
+//                                }
+//                            }
+//                        }
+//                    }
+                    if showSearchBar{
                         ToolbarItemGroup(placement: .navigationBarLeading){
-                            Button {
-                                withAnimation(.easeInOut(duration: 0.1)){
-                                    isLiked.toggle()
-                                }
-                            } label: {
-                                if isLiked{
-                                    Image(systemName: "heart.fill")
-                                        .foregroundColor(Color.red)
-                                        .padding(10)
-                                        .background(Color.white.opacity(0.4))
-                                        .clipShape(Circle())
-                                }
-                                else{
-                                    Image(systemName: "heart")
-                                        .foregroundColor(Color.black)
-                                        .padding(10)
-                                        .background(Color.white.opacity(0.4))
-                                        .clipShape(Circle())
-                                }
+                            Button(action: {
+                                showSearchBar.toggle()
+                            }){
+                                Image(systemName: "arrow.left")
                             }
                         }
                     }
-                    ToolbarItemGroup(placement: .principal){
-                        if showSearchBar{
-                            SearchBarView()
-                        }
-                    } // if pressed then show bar with results and blur background view
+//                    ToolbarItemGroup(placement: .principal){
+//                        if showSearchBar{
+//                            SearchBarView()
+//                        }
+//                    } // if pressed then show bar with results and blur background view
+                }
+                if showSearchBar{
+                    SearchResultView()
+                    
                 }
             }
             .onAppear(){
-                weatherModel.getCityName()
-                weatherModel.getWeather()
+                locationManager.updateLocation()
             }
             .refreshable {
                 locationManager.updateLocation()
-                //weatherModel.getWeather()
             }
         }
     }

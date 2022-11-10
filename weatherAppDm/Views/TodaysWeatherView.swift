@@ -157,10 +157,8 @@ struct TodaysWeatherView: View {
                 //.background(Color.gray.opacity(0))
                 .cornerRadius(15)
                 .padding()
+                .shadow(radius: 3)
             }
-        }.onAppear(){
-            weatherModel.getWeather()
-            
         }
     }
 }

@@ -165,10 +165,6 @@ struct ForecastView: View {
                 }
             }
         }
-        .onAppear(){
-            weatherModel.getWeather()
-                
-        }
     }
 }
 

@@ -7,13 +7,13 @@
 
 import Foundation
 import CoreLocation
-import MapKit
+
 //
 class LocationManager: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
     static let shared = LocationManager()
-    @Published var userLocation: CLLocationCoordinate2D?
-    public var hasUpdatedLocation: Bool = false
+    @Published var userLocation: CLLocation?
+    public var hasUpdatedLocation: Bool = true
     
     override init() {
         super.init()
@@ -21,7 +21,7 @@ class LocationManager: NSObject, ObservableObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-        hasUpdatedLocation = false
+        //hasUpdatedLocation = false
     }
 
     
@@ -33,7 +33,7 @@ class LocationManager: NSObject, ObservableObject {
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        self.userLocation = location.coordinate
+        self.userLocation = location
         locationManager.stopUpdatingLocation()
         hasUpdatedLocation = true
 

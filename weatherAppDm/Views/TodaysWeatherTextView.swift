@@ -20,7 +20,7 @@ struct TodaysWeatherTextView: View {
         let weatherCode: Int = weatherModel.currentWeather?.weathercode ?? 0
         let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherDescription ?? ""
         VStack{
-            Text(weatherModel.cityName) // data ska senare hämtas från viewModel
+            Text(weatherModel.cityName ?? "-") // data ska senare hämtas från viewModel
                 .font(Font.title)
                 .bold()
                 .foregroundColor(Color.white)
@@ -35,7 +35,7 @@ struct TodaysWeatherTextView: View {
                 .foregroundColor(Color.white)
         }
         .onAppear(){
-            weatherModel.getWeather()
+           // weatherModel.getWeather()
 
         }
     }

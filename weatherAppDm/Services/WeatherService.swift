@@ -20,8 +20,7 @@ class APILoader: ObservableObject{
     @Published var latitude: Double?
     @Published var longitude: Double?
     let geoCoder = CLGeocoder()
-    var location = CLLocation()
-    var cityName: String = "-"
+    @Published var cityName: String?
     
     init(){
         locationToken = LocationManager.shared.$userLocation
@@ -30,27 +29,35 @@ class APILoader: ObservableObject{
                 print("Has completed", completion)
             }, receiveValue: { [weak self] location in
                 print("hej")
-                if LocationManager.shared.hasUpdatedLocation{
-                    self?.latitude = location?.latitude
-                    self?.longitude = location?.longitude
-                    self?.getCityName()
+                if let location{
+                    self?.latitude = location.coordinate.latitude
+                    self?.longitude = location.coordinate.longitude
+                    self?.getCityName(theLocation: location)
                     self?.getWeather()
                 }
             })
         }
     
-    func getCityName(){
-        location = CLLocation(latitude: latitude ?? 0, longitude: longitude ?? 0)
-        print("vasdadu")
-        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
+    // store and reuse location
+    //use guard statement
+    
+// getCiyName-function below was inspired by https://stackoverflow.com/questions/49276052/unable-to-get-city-name-by-current-latitude-and-longitude-in-swift
+    func getCityName(theLocation: CLLocation?){
+        guard theLocation != nil else{
+            print("No location")
+            return
+        }
+        geoCoder.reverseGeocodeLocation(theLocation ?? CLLocation(), completionHandler: { (placemarks, _) -> Void in
             for placemark in placemarks ?? []{
-                if let city = placemark.locality { self.cityName = city}
+                if let city = placemark.locality{
+                    self.cityName = city
+                }
             }
         })
     }
     
     func getWeather(){
-        print("cityname: " + cityName)
+        print("cityname: " + (cityName ??  "-"))
         print("latitude:  \(latitude)" + " longitude: \(longitude)")
         let urlString = "https://api.open-meteo.com/v1/forecast?latitude=\(latitude ?? 00)&longitude=\(longitude ?? 00)&hourly=temperature_2m,rain,showers,snowfall,weathercode,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum&current_weather=true&timezone=auto"
         guard let url = URL(string: urlString )

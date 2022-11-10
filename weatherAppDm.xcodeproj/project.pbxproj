@@ -123,7 +123,6 @@
 				DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */,
 				DB0721A02912B9E4005C2C03 /* SearchBarView.swift */,
 				DB9D5BE8291D18CD0016F6EF /* SubView */,
-				DB9D5BEF291D8DEB0016F6EF /* LikeButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,6 +170,7 @@
 		DB9D5BE8291D18CD0016F6EF /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				DB9D5BEF291D8DEB0016F6EF /* LikeButtonView.swift */,
 				DB0721A22912BB5C005C2C03 /* SearchResultView.swift */,
 				DB9D5BE6291CF1570016F6EF /* WeatherResultView.swift */,
 			);

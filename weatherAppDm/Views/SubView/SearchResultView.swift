@@ -4,7 +4,7 @@
 //
 //  Created by David on 2022-11-02.
 //
-
+//modal transition tutorial found here https://www.youtube.com/watch?v=I1fsl1wvsjY
 import SwiftUI
 import CoreLocation
 

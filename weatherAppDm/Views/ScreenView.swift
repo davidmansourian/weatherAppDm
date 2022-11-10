@@ -20,8 +20,6 @@ struct ScreenView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                //                LinearGradient(gradient: Gradient(colors:[.orange,.blue]), startPoint: UnitPoint(x:1.9, y: -0.05), endPoint: UnitPoint(x: 0.4, y: 1))
-                //                    .edgesIgnoringSafeArea(.all)
                 LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical){
@@ -33,7 +31,7 @@ struct ScreenView: View {
                 }
                 .onTapGesture {
                     if showSearchBar{
-                        withAnimation(.linear(duration: 0.2)){
+                        withAnimation(.easeInOut(duration: 0.4)){
                             showSearchBar.toggle()
                         }
                         
@@ -58,44 +56,17 @@ struct ScreenView: View {
                             }
                         }
                     }
-//                    if !showSearchBar{
-//                        ToolbarItemGroup(placement: .navigationBarLeading){
-//                            Button {
-//                                withAnimation(.easeInOut(duration: 0.1)){
-//                                    isLiked.toggle()
-//                                }
-//                            } label: {
-//                                if isLiked{
-//                                    Image(systemName: "heart.fill")
-//                                        .foregroundColor(Color.red)
-//                                        .padding(10)
-//                                        .background(Color.white.opacity(0.4))
-//                                        .clipShape(Circle())
-//                                }
-//                                else{
-//                                    Image(systemName: "heart")
-//                                        .foregroundColor(Color.black)
-//                                        .padding(10)
-//                                        .background(Color.white.opacity(0.4))
-//                                        .clipShape(Circle())
-//                                }
-//                            }
-//                        }
-//                    }
                     if showSearchBar{
                         ToolbarItemGroup(placement: .navigationBarLeading){
                             Button(action: {
-                                showSearchBar.toggle()
+                                withAnimation(.easeInOut(duration: 0.4)){
+                                    showSearchBar.toggle()
+                                }
                             }){
                                 Image(systemName: "arrow.left")
                             }
                         }
                     }
-//                    ToolbarItemGroup(placement: .principal){
-//                        if showSearchBar{
-//                            SearchBarView()
-//                        }
-//                    } // if pressed then show bar with results and blur background view
                 }
                 if showSearchBar{
                     SearchResultView()

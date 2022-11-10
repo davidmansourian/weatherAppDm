@@ -8,7 +8,8 @@
 import SwiftUI
 import CoreLocation
 
-// shared solution found here https://stackoverflow.com/questions/68675389/modify-published-variable-from-another-class-that-is-not-declared-in-swiftui
+// shared class solution found here https://stackoverflow.com/questions/68675389/modify-published-variable-from-another-class-that-is-not-declared-in-swiftui
+//modal transition tutorial found here https://www.youtube.com/watch?v=I1fsl1wvsjY
 
 struct WeatherResultView: View {
     @Binding var showResult: Bool
@@ -16,13 +17,13 @@ struct WeatherResultView: View {
     @ObservedObject var searchResult = SearchResultViewModel.shared
     @State private var isDragging = false
     @State private var curHeight: CGFloat = 650
-    let minHeight: CGFloat = 650
+    let minHeight: CGFloat = 600
     let maxHeight: CGFloat = 680
     var body: some View {
         ZStack(alignment: .bottom){
             if showResult{
                 Color.black
-                    .opacity(0.2)
+                    .opacity(0.3)
                     .ignoresSafeArea()
                     .onTapGesture{
                         showResult = false
@@ -55,7 +56,7 @@ struct WeatherResultView: View {
                 VStack{
                     if showResult{
                         LikeButtonView()
-                            .offset(x: -160, y: -100)
+                            .offset(x: -160, y: -90)
                             .padding()
                         VStack{
                             Text(subWeatherModel.subCityName ?? "-") // data ska senare hämtas från viewModel
@@ -124,8 +125,20 @@ struct WeatherResultView: View {
                 RoundedRectangle(cornerRadius: 25.0)
                 Rectangle()
                     .frame(height: curHeight)
+                    .cornerRadius(25)
             }
-                .foregroundColor(.gray.opacity(0.5))
+                .onTapGesture {
+                    showResult = false
+                }
+                .foregroundColor(Color.black.opacity(1))
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [.yellow, .blue]), startPoint: .top, endPoint: .bottom)
+                        .cornerRadius(25)
+                    )
+                .opacity(0.5)
+            
+            //                LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
+            //                    .edgesIgnoringSafeArea(.all)
         )
         .animation(isDragging ? nil : .easeInOut(duration: 0.45), value: isDragging)
     }
@@ -157,6 +170,9 @@ struct WeatherResultView: View {
                 else if curHeight < maxHeight{
                     curHeight = minHeight
                 }
+//                else if curHeight <= minHeight{
+//                    showResult = false
+//                }
                 
             }
     }

@@ -14,34 +14,35 @@ class APILoader: ObservableObject{
     private var cancellable: Cancellable?
     private let jsonDecoder = JSONDecoder()
     private var locationToken: Cancellable?
+    static let shared = APILoader()
+    
+    
     @Published var currentWeather: CurrentWeather?
     @Published var hourlyWeather: HourlyWeather?
     @Published var dailyWeather: DailyWeather?
-//    @Published var latitude: Double?
-//    @Published var longitude: Double?
     let geoCoder = CLGeocoder()
     @Published var cityName: String?
     
-    init(){
-        locationToken = LocationManager.shared.$userLocation
-            .print("debugging")
-            .sink(receiveCompletion: { completion in
-                print("Has completed", completion)
-            }, receiveValue: { [weak self] location in
-                print("hej")
-                if let location{
-//                    self?.latitude = location.coordinate.latitude
-//                    self?.longitude = location.coordinate.longitude
-                    self?.getCityName(theLocation: location)
-                    self?.getWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                }
-            })
-        }
+//    init(){
+//        locationToken = LocationManager.shared.$userLocation
+//            .print("debugging")
+//            .sink(receiveCompletion: { completion in
+//                print("Has completed", completion)
+//            }, receiveValue: { [weak self] location in
+//                print("hej")
+//                if let location{
+////                    self?.latitude = location.coordinate.latitude
+////                    self?.longitude = location.coordinate.longitude
+//                    self?.getCityName(theLocation: location)
+//                    self?.getWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//                }
+//            })
+//        }
     
     // store and reuse location
     //use guard statement
     
-// getCiyName-function below was inspired by https://stackoverflow.com/questions/49276052/unable-to-get-city-name-by-current-latitude-and-longitude-in-swift
+ //getCiyName-function below was inspired by https://stackoverflow.com/questions/49276052/unable-to-get-city-name-by-current-latitude-and-longitude-in-swift
     func getCityName(theLocation: CLLocation?){
         guard theLocation != nil else{
             print("No location")

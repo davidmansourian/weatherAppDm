@@ -1,25 +1,25 @@
 //
-//  WeatherViewModelDaily.swift
+//  SubViewModelDaily.swift
 //  weatherAppDm
 //
-//  Created by David on 2022-11-07.
+//  Created by David on 2022-11-11.
 //
 
 import Foundation
 import Combine
 
-class WeatherViewModelDaily: ObservableObject{
+class WeatherSubViewModelDaily: ObservableObject{
 
 
-    private var weatherModel = MainWeatherAppModel()
-    private var dailyViewModelToken: Cancellable?
+    private var dailyWeather = SubWeatherModel()
+    private var subDailyViewModelToken: Cancellable?
     @Published var date: [String]?
     @Published var maxTemp: [Float]?
     @Published var minTemp: [Float]?
     @Published var weatherCode: [Int]?
     
     init(){
-        dailyViewModelToken = weatherModel.$dailyWeather
+        subDailyViewModelToken = dailyWeather.$dailyWeather
             .sink(receiveCompletion: {completion in
                 print(completion)
             }, receiveValue: {[weak self] theDailyWeather in

@@ -11,8 +11,10 @@ import Foundation
 import Foundation
 import CoreLocation
 import MapKit
+import Combine
 
 class SearchResultViewModel : ObservableObject {
+    private var locationToken: Cancellable?
     @Published private var coordinate : CLLocationCoordinate2D?
     @Published var chosenLocation: CLLocationCoordinate2D
     static let shared = SearchResultViewModel(chosenLocation: CLLocationCoordinate2D())

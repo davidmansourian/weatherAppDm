@@ -6,54 +6,85 @@
 //
 
 import Foundation
+import Combine
 import SwiftUI
+import CoreLocation
 
 
 class WeatherViewModelCurrent: ObservableObject{
-
+    private var currentViewModelToken: Cancellable?
+    private var dailyViewModelToken: Cancellable?
+    private var cityLocationToken: Cancellable?
+    private var cityNameToken: Cancellable?
+    private var weatherModel = MainWeatherAppModel()
+    @Published var temperature: Int?
+    @Published var maxTemp: [Float]?
+    @Published var minTemp: [Float]?
+    @Published var weatherCode: Int?
+    @Published var weatherCodeDescription: String?
+    @Published var cityLocation: CLLocation?
     
-    private var weatherModel = APILoader()
-    @Published var temperature: Float = 0
-    @Published var weathercode: Int = 0
-    @Published var maxTemp: Float = 0
-    @Published var minTemp: Float = 0
-    
-    init(weatherModel: APILoader){
-        self.weatherModel = weatherModel
+    init(){
+        currentViewModelToken = weatherModel.$currentWeather
+            .print("debugging")
+            .sink(receiveCompletion: { completion in
+                print("Has completed", completion)
+            }, receiveValue: { [weak self] weather in
+                print("hej")
+                if let weather{
+                    self?.temperature = Int(weather.temperature)
+                    self?.weatherCode = weather.weathercode
+                    
+                }
+            })
+        
+        dailyViewModelToken = weatherModel.$dailyWeather
+            .sink(receiveCompletion: {completion in
+                print(completion)
+            }, receiveValue: {[weak self] theDailyWeather in
+                self?.maxTemp = theDailyWeather?.temperature_2m_max
+                self?.minTemp = theDailyWeather?.temperature_2m_min
+            })
+        
+        cityLocationToken = weatherModel.$location
+            .sink(receiveCompletion: {completion in}, receiveValue: {[weak self] location in
+                if let location{
+                    self?.cityLocation = location
+                }
+            })
     }
     
-    public func refresh(){
-        self.temperature = weatherModel.currentWeather?.temperature ?? 0
-        self.weathercode = weatherModel.currentWeather?.weathercode ?? 0
-        self.maxTemp = weatherModel.dailyWeather?.temperature_2m_max.first ?? 0
-        self.minTemp = weatherModel.dailyWeather?.temperature_2m_min.first ?? 0
-    }
     
-    public func getTemperature() -> (Int){
-        let temperature: Int = Int(Float(weatherModel.currentWeather?.temperature ?? 0))
-        return temperature
-    }
     
-    public func getMaxTemperature() -> (Int){
-        let maxTemperature: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_max.first ?? 0))
-        return maxTemperature
-    }
     
-    public func getMinTemperature() -> (Int){
-        let minTemperature: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_min.first ?? 0))
-        return minTemperature
-    }
-    
-    public func getWeatherIconFromCodeForCurrent() -> (String){
-        let weatherCode: Int = weatherModel.currentWeather?.weathercode ?? 0
-        return TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? ""
-    }
-    
-    public func getWeatherDescriptionFromCodeForCurrent() -> (String){
-        let weatherCode: Int = weatherModel.currentWeather?.weathercode ?? 0
-        return TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherDescription ?? ""
-    }
+    //    func getCityName() -> String{
+    //        let cityName: String = weatherModel.cityName ?? "-"
+    //        return cityName
+    //    }
+    //
+    //    func getTemperature() -> Int{
+    //        let temperature: Int = Int(Float(weatherModel.currentWeather?.temperature ?? 0))
+    //        return temperature
+    //    }
+    //
+    //    func getMaxTemp() -> Int{
+    //        let maxTemp: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_max.first ?? 0))
+    //        return maxTemp
+    //    }
+    //
+    //    func getMinTemp() -> Int{
+    //        let minTemp: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_min.first ?? 0))
+    //        return minTemp
+    //    }
+    //
+    //    func getTodaysWeatherCode() -> Int{
+    //        let weatherCode: Int = weatherModel.currentWeather?.weathercode ?? 0
+    //        return weatherCode
+    //    }
+    //
+    //    func getWeatherDescription() -> String{
+    //        let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[getTodaysWeatherCode()]?.weatherDescription ?? ""
+    //        return weatherDescription
+    //    }
     
 }
-
-

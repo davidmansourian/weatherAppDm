@@ -13,7 +13,8 @@ import CoreLocation
 
 struct WeatherResultView: View {
     @Binding var showResult: Bool
-    @StateObject var subWeatherModel = SubWeatherService()
+    @StateObject var subResultDaily = WeatherSubViewModelDaily()
+    @StateObject var subResultCurrent = WeatherViewSubModelCurrent()
     @ObservedObject var searchResult = SearchResultViewModel.shared
     @State private var isDragging = false
     @State private var curHeight: CGFloat = 650
@@ -23,7 +24,7 @@ struct WeatherResultView: View {
         ZStack(alignment: .bottom){
             if showResult{
                 Color.black
-                    .opacity(0.3)
+                    .opacity(0.2)
                     .ignoresSafeArea()
                     .onTapGesture{
                         showResult = false
@@ -39,10 +40,10 @@ struct WeatherResultView: View {
     
     var mainView: some View{
         VStack{
-            let weatherCode: Int = subWeatherModel.subCurrentWeather?.weathercode ?? 0
-            let temperature: Int = Int(Float(subWeatherModel.subCurrentWeather?.temperature ?? 0))
-            let weatherIcon: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? ""
-            let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherDescription ?? ""
+//            let weatherCode: Int = subWeatherModel.subCurrentWeather?.weathercode ?? 0
+//            let temperature: Int = Int(Float(subWeatherModel.subCurrentWeather?.temperature ?? 0))
+//            let weatherIcon: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? ""
+//            let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherDescription ?? ""
             ZStack{
                 Capsule()
                     .frame(width: 40, height: 6)
@@ -59,50 +60,18 @@ struct WeatherResultView: View {
                             .offset(x: -160, y: -90)
                             .padding()
                         VStack{
-                            Text(subWeatherModel.subCityName ?? "-") // data ska senare hämtas från viewModel
+                            Text("Test") // data ska senare hämtas från viewModel
                                 .font(Font.title)
                                 .foregroundColor(Color.white)
-                            Image(systemName: weatherIcon)
+                            Image(systemName: TranslatedWeathercodes().weatherCodeProperties[subResultCurrent.weatherCode ?? 0]?.weatherIcon ?? "")
                                 .font(.system(size: 60))
                                 .foregroundColor(Color.white)
-                            Text("\(temperature)")
+                            Text("\(subResultCurrent.temperature ?? 0)")
                                 .font(Font.title)
                                 .foregroundColor(Color.white)
-                            Text(weatherDescription)
+                            Text(TranslatedWeathercodes().weatherCodeProperties[subResultCurrent.weatherCode ?? 0]?.weatherDescription ?? "")
                                 .foregroundColor(Color.white)
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                Grid{
-                                    GridRow{
-                                        ForEach(0...6, id: \.self){ i in
-                                            Text("Today")
-                                                .foregroundColor(Color.white)
-                                        }
-                                    }
-                                    .padding()
-                                    GridRow{
-                                        ForEach(0...6, id: \.self){ i in
-                                            Image(systemName: "cloud.fill")
-                                                .renderingMode(.original)
-                                        }
-                                    }
-                                    .padding()
-                                    GridRow{
-                                        ForEach(0...6, id: \.self){ i in
-                                            Text("10")
-                                                .foregroundColor(Color.white)
-                                        }
-                                    }
-                                    .padding()
-                                }
-                            }
-                            .background(
-                                Rectangle()
-                                    .fill(Color.white.opacity(0.2))
-                            )
-                            //.background(Color.gray.opacity(0))
-                            .cornerRadius(15)
-                            .padding()
-                            .shadow(radius: 3)
+                            DailyWeatherResultView()
                         }
                         .offset(y: -60)
                     }
@@ -112,10 +81,7 @@ struct WeatherResultView: View {
             .padding(.bottom, 35)
         }
         .onAppear{
-            print("onappear mannen")
             print("chosen location in popup view: ", self.searchResult.chosenLocation)
-            subWeatherModel.getWeather(latitude: self.searchResult.chosenLocation.latitude, longitude: self.searchResult.chosenLocation.longitude)
-            subWeatherModel.getCityName(latitude: self.searchResult.chosenLocation.latitude, longitude: self.searchResult.chosenLocation.longitude)
             
         }
         .frame(height: curHeight)
@@ -130,15 +96,12 @@ struct WeatherResultView: View {
                 .onTapGesture {
                     showResult = false
                 }
-                .foregroundColor(Color.black.opacity(1))
+                .foregroundColor(Color.black.opacity(0.8))
                 .background(
-                    LinearGradient(gradient: Gradient(colors: [.yellow, .blue]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [.yellow, .blue]), startPoint: .topTrailing, endPoint: .bottomLeading)
                         .cornerRadius(25)
                     )
                 .opacity(0.5)
-            
-            //                LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
-            //                    .edgesIgnoringSafeArea(.all)
         )
         .animation(isDragging ? nil : .easeInOut(duration: 0.45), value: isDragging)
     }

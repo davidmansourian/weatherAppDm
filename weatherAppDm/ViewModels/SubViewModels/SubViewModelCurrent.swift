@@ -11,27 +11,23 @@ import Combine
 class WeatherViewSubModelCurrent: ObservableObject{
     private var currentSubViewModelToken: Cancellable?
     private var dailySubViewModelToken: Cancellable?
+    private var cityNameToken: Cancellable?
     private var currentWeather = SubWeatherModel()
     @Published var temperature: Int?
     @Published var maxTemp: [Float]?
     @Published var minTemp: [Float]?
     @Published var weatherCode: Int?
     @Published var weatherCodeDescription: String?
+    @Published var cityName: String?
     
     init(){
         currentSubViewModelToken = currentWeather.$currentWeather
-            .print("debugging")
             .sink(receiveCompletion: { completion in
                 print("Has completed", completion)
             }, receiveValue: { [weak self] subWeather in
-                print("hej")
                 if let subWeather{
-                    print("sub Temperature: ", subWeather.temperature)
-                    print("sub weathercode: ", subWeather.weathercode)
                     self?.temperature = Int(subWeather.temperature)
                     self?.weatherCode = subWeather.weathercode
-                    
-                    
                 }
             })
         
@@ -42,6 +38,16 @@ class WeatherViewSubModelCurrent: ObservableObject{
                 self?.maxTemp = theDailyWeather?.temperature_2m_max
                 self?.minTemp = theDailyWeather?.temperature_2m_min
             })
+        
+        cityNameToken = currentWeather.$cityName
+            .sink(receiveCompletion: {completion in}, receiveValue: {[weak self]
+                theName in
+                if theName != nil{
+                    self?.cityName = theName
+                }
+            })
+        
+        
     }
     
 //    func getsubCurrentWeather(latitude: Double?, longitude: Double?){

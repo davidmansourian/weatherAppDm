@@ -15,6 +15,7 @@ class SubWeatherModel: ObservableObject{
     private var dailyWeatherDataToken: Cancellable?
     private var subGeoCoderToken: Cancellable?
     private var requestedLocationToken: Cancellable?
+    private var cityNameToken: Cancellable?
     
     @Published var subWeatherService = APILoader()
     @Published var subGeoCoder = GeoCodeService()
@@ -47,18 +48,27 @@ class SubWeatherModel: ObservableObject{
                 }
             })
         
+        cityNameToken = subWeatherService.$cityName
+            .sink(receiveCompletion: {completion in}, receiveValue: {[weak self]
+                theName in
+                if let theName{
+                    self?.cityName = theName
+                }
+            })
+        
         requestedLocationToken = SearchResultViewModel.shared.$chosenLocation
             .sink(receiveCompletion: {completion in}, receiveValue: {[weak self]
                 theLocation in
-                    self?.subWeatherService.getWeather(latitude: theLocation.latitude, longitude: theLocation.longitude)
+                self?.subWeatherService.getWeather(latitude: theLocation.latitude, longitude: theLocation.longitude)
+                self?.subWeatherService.getCityName(theLocation: CLLocation(latitude: theLocation.latitude, longitude: theLocation.longitude))
             })
         
         
-//        subGeoCoderToken = subGeoCoder.$cityName
-//            .sink(receiveCompletion: {completion in}, receiveValue: {geoCoderData in
-//                if let geoCoderData{
-//                    self.cityName = geoCoderData
-//                }
-//            })
+        //        subGeoCoderToken = subGeoCoder.$cityName
+        //            .sink(receiveCompletion: {completion in}, receiveValue: {geoCoderData in
+        //                if let geoCoderData{
+        //                    self.cityName = geoCoderData
+        //                }
+        //            })
     }
 }

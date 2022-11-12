@@ -60,7 +60,7 @@ struct WeatherResultView: View {
                             .offset(x: -160, y: -90)
                             .padding()
                         VStack{
-                            Text("Test") // data ska senare hämtas från viewModel
+                            Text(subResultCurrent.cityName ?? "-") // data ska senare hämtas från viewModel
                                 .font(Font.title)
                                 .foregroundColor(Color.white)
                             Image(systemName: TranslatedWeathercodes().weatherCodeProperties[subResultCurrent.weatherCode ?? 0]?.weatherIcon ?? "")

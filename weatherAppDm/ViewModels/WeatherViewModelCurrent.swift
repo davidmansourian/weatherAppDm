@@ -23,6 +23,7 @@ class WeatherViewModelCurrent: ObservableObject{
     @Published var weatherCode: Int?
     @Published var weatherCodeDescription: String?
     @Published var cityLocation: CLLocation?
+    @Published var cityName: String?
     
     init(){
         currentViewModelToken = weatherModel.$currentWeather
@@ -45,6 +46,15 @@ class WeatherViewModelCurrent: ObservableObject{
                 self?.maxTemp = theDailyWeather?.temperature_2m_max
                 self?.minTemp = theDailyWeather?.temperature_2m_min
             })
+        
+        cityNameToken = weatherModel.$cityName
+            .sink(receiveCompletion: {completion in}, receiveValue: {[weak self]
+                theName in
+                if theName != nil{
+                    self?.cityName = theName
+                }
+            })
+        
         
         cityLocationToken = weatherModel.$location
             .sink(receiveCompletion: {completion in}, receiveValue: {[weak self] location in

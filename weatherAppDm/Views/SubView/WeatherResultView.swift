@@ -7,9 +7,12 @@
 
 import SwiftUI
 import CoreLocation
+import CoreData
+
 
 // shared class solution found here https://stackoverflow.com/questions/68675389/modify-published-variable-from-another-class-that-is-not-declared-in-swiftui
 //modal transition tutorial found here https://www.youtube.com/watch?v=I1fsl1wvsjY
+
 
 struct WeatherResultView: View {
     @FetchRequest(sortDescriptors: []) var weatherPages: FetchedResults<SavedWeather>
@@ -146,12 +149,21 @@ struct WeatherResultView: View {
                 
             }
     }
+    
+    
+    private func itemExists() -> Bool {
+        let fetchRequest : NSFetchRequest<SavedWeather> = SavedWeather.fetchRequest()
+        let predicate = NSPredicate(format: "latitude == %d AND longitude == %d", searchResult.chosenLocation.latitude, searchResult.chosenLocation.longitude)
+            return ((try? moc.count(for: fetchRequest)) ?? 0) > 0
+        }
 }
 
 struct WeatherResultView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherResultView(showResult: .constant(true))
     }
+    
+    
 }
 
 
@@ -160,16 +172,21 @@ extension WeatherResultView{
     private var likeButtonView: some View{
         Button{
             withAnimation(.easeInOut(duration: 0.1)){
-                let weatherPage = SavedWeather(context: moc)
-                weatherPage.id = UUID()
-                weatherPage.latitude = searchResult.chosenLocation.latitude
-                weatherPage.longitude = searchResult.chosenLocation.longitude
-                weatherPage.isLiked = true
-                
-                try? moc.save()
+                if !itemExists(){
+                    let weatherPage = SavedWeather(context: moc)
+                    weatherPage.id = UUID()
+                    weatherPage.latitude = searchResult.chosenLocation.latitude
+                    weatherPage.longitude = searchResult.chosenLocation.longitude
+                    weatherPage.isLiked = true
+                    
+                    try? moc.save()
+                }
+                else{
+                   print("error. item already exists. u are stuck with it forever")
+                }
             }
         } label: {
-            if isLiked{
+            if itemExists(){
                 Image(systemName: "heart.fill")
                     .foregroundColor(Color.red)
                     .padding(10)

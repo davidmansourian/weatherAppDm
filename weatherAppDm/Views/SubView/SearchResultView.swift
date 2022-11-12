@@ -8,15 +8,19 @@
 import SwiftUI
 import CoreLocation
 
+struct generatingID{
+    var IDArr: [Int] = []
+    let id = UUID()
+}
 
 struct SearchResultView: View {
     @StateObject var weatherModel = APILoader()
     @StateObject private var mapSearch = MapSearch()
-    @StateObject var locationManager = LocationManager.shared
     @ObservedObject var searchResult = SearchResultViewModel.shared
     @State var chosenResult = CLLocationCoordinate2D()
     @State private var showResult = false
     @State private var offset: CGFloat = 200.0
+    
     var body: some View {
         NavigationStack{
             ZStack{

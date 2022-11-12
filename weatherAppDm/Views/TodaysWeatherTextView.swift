@@ -27,7 +27,7 @@ struct TodaysWeatherTextView: View {
                 .bold()
                 .foregroundColor(Color.white)
             Text("\(todays.temperature ?? 0)°") // data ska senare hämtas från viewModel
-                .font(.system(size: 70))
+                .font(.system(size: 50))
                 .foregroundColor(Color.white)
             Text(codeTranslator.weatherCodeProperties[todays.weatherCode ?? 0]?.weatherDescription ?? "") // data ska senare hämtas från viewModel
                 .bold()

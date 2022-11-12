@@ -36,6 +36,7 @@ struct ForecastView: View {
                         Text(weatherViewModelDaily.getDayName()[day])
                             .foregroundColor(Color.white)
                         Image(systemName: TranslatedWeathercodes().weatherCodeProperties[weatherViewModelDaily.getDailyImgString()[day]]?.weatherIcon ?? "")
+                            .renderingMode(.original)
                             .foregroundColor(Color.white)
                         Text(weatherViewModelDaily.getDailyAvgTemp()[day])
                             .foregroundColor(Color.white)

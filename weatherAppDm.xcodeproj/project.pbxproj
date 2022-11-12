@@ -26,13 +26,15 @@
 		DB4F7CE5291C17CF006833DF /* MapSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CE4291C17CF006833DF /* MapSearch.swift */; };
 		DB9D5BE3291CE8D70016F6EF /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BE2291CE8D70016F6EF /* SearchResultViewModel.swift */; };
 		DB9D5BE7291CF1570016F6EF /* WeatherResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BE6291CF1570016F6EF /* WeatherResultView.swift */; };
-		DB9D5BF0291D8DEB0016F6EF /* LikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BEF291D8DEB0016F6EF /* LikeButtonView.swift */; };
 		DB9D5BF3291E870E0016F6EF /* SubViewModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BF2291E870E0016F6EF /* SubViewModelCurrent.swift */; };
 		DB9D5BF5291E87190016F6EF /* SubViewModelDaily.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BF4291E87190016F6EF /* SubViewModelDaily.swift */; };
 		DB9D5BF7291E97670016F6EF /* GeoCoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BF6291E97670016F6EF /* GeoCoderService.swift */; };
 		DB9D5BF9291EB1420016F6EF /* MainWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BF8291EB1420016F6EF /* MainWeatherModel.swift */; };
 		DB9D5BFB291EB14A0016F6EF /* SubWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BFA291EB14A0016F6EF /* SubWeatherModel.swift */; };
 		DB9D5C01291EDC570016F6EF /* DailyWeatherResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C00291EDC570016F6EF /* DailyWeatherResultView.swift */; };
+		DB9D5C03291FCDB10016F6EF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C02291FCDB10016F6EF /* SettingsView.swift */; };
+		DB9D5C09291FE71B0016F6EF /* Datamodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C07291FE71B0016F6EF /* Datamodel.xcdatamodeld */; };
+		DB9D5C0B291FE7990016F6EF /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C0A291FE7990016F6EF /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,13 +59,15 @@
 		DB4F7CE4291C17CF006833DF /* MapSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearch.swift; sourceTree = "<group>"; };
 		DB9D5BE2291CE8D70016F6EF /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		DB9D5BE6291CF1570016F6EF /* WeatherResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResultView.swift; sourceTree = "<group>"; };
-		DB9D5BEF291D8DEB0016F6EF /* LikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonView.swift; sourceTree = "<group>"; };
 		DB9D5BF2291E870E0016F6EF /* SubViewModelCurrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewModelCurrent.swift; sourceTree = "<group>"; };
 		DB9D5BF4291E87190016F6EF /* SubViewModelDaily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewModelDaily.swift; sourceTree = "<group>"; };
 		DB9D5BF6291E97670016F6EF /* GeoCoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoderService.swift; sourceTree = "<group>"; };
 		DB9D5BF8291EB1420016F6EF /* MainWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherModel.swift; sourceTree = "<group>"; };
 		DB9D5BFA291EB14A0016F6EF /* SubWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubWeatherModel.swift; sourceTree = "<group>"; };
 		DB9D5C00291EDC570016F6EF /* DailyWeatherResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherResultView.swift; sourceTree = "<group>"; };
+		DB9D5C02291FCDB10016F6EF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		DB9D5C08291FE71B0016F6EF /* Datamodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Datamodel.xcdatamodel; sourceTree = "<group>"; };
+		DB9D5C0A291FE7990016F6EF /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 				DB07219229116F63005C2C03 /* ViewModels */,
 				DB07219129116F5E005C2C03 /* Views */,
 				DB07218729116A8C005C2C03 /* Assets.xcassets */,
+				DB9D5C0D291FEC130016F6EF /* CoreData */,
 				DB07218929116A8C005C2C03 /* Preview Content */,
 			);
 			path = weatherAppDm;
@@ -125,6 +130,7 @@
 				DB072198291175F8005C2C03 /* WeatherView.swift */,
 				DB07219A29117623005C2C03 /* TodaysWeatherView.swift */,
 				DB07219C2911BB43005C2C03 /* TodaysWeatherTextView.swift */,
+				DB9D5C02291FCDB10016F6EF /* SettingsView.swift */,
 				DB9D5BE8291D18CD0016F6EF /* SubView */,
 			);
 			path = Views;
@@ -154,8 +160,8 @@
 		DB0721A72912CF2C005C2C03 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DB9D5BE9291D43000016F6EF /* MainViews */,
 				DB2A4CBE2914353A008F52FB /* WeatherCodesTranslation.swift */,
+				DB0721A52912C710005C2C03 /* WeatherData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -174,20 +180,11 @@
 		DB9D5BE8291D18CD0016F6EF /* SubView */ = {
 			isa = PBXGroup;
 			children = (
-				DB9D5BEF291D8DEB0016F6EF /* LikeButtonView.swift */,
 				DB0721A22912BB5C005C2C03 /* SearchResultView.swift */,
 				DB9D5BE6291CF1570016F6EF /* WeatherResultView.swift */,
 				DB9D5C00291EDC570016F6EF /* DailyWeatherResultView.swift */,
 			);
 			path = SubView;
-			sourceTree = "<group>";
-		};
-		DB9D5BE9291D43000016F6EF /* MainViews */ = {
-			isa = PBXGroup;
-			children = (
-				DB0721A52912C710005C2C03 /* WeatherData.swift */,
-			);
-			path = MainViews;
 			sourceTree = "<group>";
 		};
 		DB9D5BF1291E86F10016F6EF /* SubViewModels */ = {
@@ -197,6 +194,15 @@
 				DB9D5BF4291E87190016F6EF /* SubViewModelDaily.swift */,
 			);
 			path = SubViewModels;
+			sourceTree = "<group>";
+		};
+		DB9D5C0D291FEC130016F6EF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D5C0A291FE7990016F6EF /* DataController.swift */,
+				DB9D5C07291FE71B0016F6EF /* Datamodel.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +279,7 @@
 				DB0721B32912E60E005C2C03 /* WeatherViewModelCurrent.swift in Sources */,
 				DB9D5BE3291CE8D70016F6EF /* SearchResultViewModel.swift in Sources */,
 				DB4F7CDF29192053006833DF /* WeatherViewModelDaily.swift in Sources */,
+				DB9D5C0B291FE7990016F6EF /* DataController.swift in Sources */,
 				DB9D5BE7291CF1570016F6EF /* WeatherResultView.swift in Sources */,
 				DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */,
 				DB9D5BF7291E97670016F6EF /* GeoCoderService.swift in Sources */,
@@ -284,8 +291,9 @@
 				DB9D5C01291EDC570016F6EF /* DailyWeatherResultView.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
 				DB2A4CC12914432A008F52FB /* WeatherViewModelHourly.swift in Sources */,
+				DB9D5C09291FE71B0016F6EF /* Datamodel.xcdatamodeld in Sources */,
+				DB9D5C03291FCDB10016F6EF /* SettingsView.swift in Sources */,
 				DB9D5BF3291E870E0016F6EF /* SubViewModelCurrent.swift in Sources */,
-				DB9D5BF0291D8DEB0016F6EF /* LikeButtonView.swift in Sources */,
 				DB072197291175CB005C2C03 /* ForecastView.swift in Sources */,
 				DB072199291175F8005C2C03 /* WeatherView.swift in Sources */,
 				DB9D5BFB291EB14A0016F6EF /* SubWeatherModel.swift in Sources */,
@@ -501,6 +509,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DB9D5C07291FE71B0016F6EF /* Datamodel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DB9D5C08291FE71B0016F6EF /* Datamodel.xcdatamodel */,
+			);
+			currentVersion = DB9D5C08291FE71B0016F6EF /* Datamodel.xcdatamodel */;
+			path = Datamodel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DB07217829116A8B005C2C03 /* Project object */;
 }

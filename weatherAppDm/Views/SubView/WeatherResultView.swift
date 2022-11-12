@@ -12,12 +12,16 @@ import CoreLocation
 //modal transition tutorial found here https://www.youtube.com/watch?v=I1fsl1wvsjY
 
 struct WeatherResultView: View {
+    @FetchRequest(sortDescriptors: []) var weatherPages: FetchedResults<SavedWeather>
+    @Environment(\.managedObjectContext) var moc
     @Binding var showResult: Bool
     @StateObject var subResultDaily = WeatherSubViewModelDaily()
     @StateObject var subResultCurrent = WeatherViewSubModelCurrent()
     @ObservedObject var searchResult = SearchResultViewModel.shared
     @State private var isDragging = false
     @State private var curHeight: CGFloat = 650
+    @State private var isLiked: Bool = false
+    
     let minHeight: CGFloat = 600
     let maxHeight: CGFloat = 680
     var body: some View {
@@ -40,10 +44,6 @@ struct WeatherResultView: View {
     
     var mainView: some View{
         VStack{
-//            let weatherCode: Int = subWeatherModel.subCurrentWeather?.weathercode ?? 0
-//            let temperature: Int = Int(Float(subWeatherModel.subCurrentWeather?.temperature ?? 0))
-//            let weatherIcon: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? ""
-//            let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherDescription ?? ""
             ZStack{
                 Capsule()
                     .frame(width: 40, height: 6)
@@ -56,7 +56,7 @@ struct WeatherResultView: View {
             ZStack{
                 VStack{
                     if showResult{
-                        LikeButtonView()
+                        likeButtonView
                             .offset(x: -160, y: -90)
                             .padding()
                         VStack{
@@ -64,8 +64,8 @@ struct WeatherResultView: View {
                                 .font(Font.title)
                                 .foregroundColor(Color.white)
                             Image(systemName: TranslatedWeathercodes().weatherCodeProperties[subResultCurrent.weatherCode ?? 0]?.weatherIcon ?? "")
+                                .renderingMode(.original)
                                 .font(.system(size: 60))
-                                .foregroundColor(Color.white)
                             Text("\(subResultCurrent.temperature ?? 0)")
                                 .font(Font.title)
                                 .foregroundColor(Color.white)
@@ -100,11 +100,18 @@ struct WeatherResultView: View {
                 .background(
                     LinearGradient(gradient: Gradient(colors: [.yellow, .blue]), startPoint: .topTrailing, endPoint: .bottomLeading)
                         .cornerRadius(25)
-                    )
+                )
                 .opacity(0.5)
         )
         .animation(isDragging ? nil : .easeInOut(duration: 0.45), value: isDragging)
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     @State private var prevDragTranslation = CGSize.zero
@@ -133,9 +140,9 @@ struct WeatherResultView: View {
                 else if curHeight < maxHeight{
                     curHeight = minHeight
                 }
-//                else if curHeight <= minHeight{
-//                    showResult = false
-//                }
+                //                else if curHeight <= minHeight{
+                //                    showResult = false
+                //                }
                 
             }
     }
@@ -144,5 +151,38 @@ struct WeatherResultView: View {
 struct WeatherResultView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherResultView(showResult: .constant(true))
+    }
+}
+
+
+extension WeatherResultView{
+    
+    private var likeButtonView: some View{
+        Button{
+            withAnimation(.easeInOut(duration: 0.1)){
+                let weatherPage = SavedWeather(context: moc)
+                weatherPage.id = UUID()
+                weatherPage.latitude = searchResult.chosenLocation.latitude
+                weatherPage.longitude = searchResult.chosenLocation.longitude
+                weatherPage.isLiked = true
+                
+                try? moc.save()
+            }
+        } label: {
+            if isLiked{
+                Image(systemName: "heart.fill")
+                    .foregroundColor(Color.red)
+                    .padding(10)
+                    .background(Color.white.opacity(0.4))
+                    .clipShape(Circle())
+            }
+            else{
+                Image(systemName: "heart")
+                    .foregroundColor(Color.black)
+                    .padding(10)
+                    .background(Color.white.opacity(0.4))
+                    .clipShape(Circle())
+            }
+        }
     }
 }

@@ -39,7 +39,7 @@ struct TodaysWeatherView: View {
                             ForEach(begin...end, id: \.self){ i in
                                 let weatherCode: Int = hourToday.weatherCode?[i] ?? 0
                                 Image(systemName: TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherIcon ?? "")
-                                    .foregroundColor(Color.white)
+                                    .renderingMode(.original)
                             } // ska hämta data från viewmodel
                         }
                         .padding()

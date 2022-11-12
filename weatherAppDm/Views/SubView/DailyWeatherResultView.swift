@@ -23,7 +23,7 @@ struct DailyWeatherResultView: View {
                 GridRow{
                     ForEach(0...6, id: \.self){ day in
                         Image(systemName: TranslatedWeathercodes().weatherCodeProperties[subResultDaily.getDailyImgString()[day]]?.weatherIcon ?? "")
-                            .foregroundColor(Color.white)
+                            .renderingMode(.original)
                     }
                 }
                 .padding()

@@ -16,7 +16,7 @@ import CoreData
 
 struct WeatherResultView: View {
     @FetchRequest(sortDescriptors: []) var weatherPages: FetchedResults<SavedWeather>
-    @Environment(\.managedObjectContext) var moc
+    var moc = PersistenceController.shared.container.viewContext
     @Binding var showResult: Bool
     @StateObject var subResultDaily = WeatherSubViewModelDaily()
     @StateObject var subResultCurrent = WeatherViewSubModelCurrent()
@@ -24,6 +24,7 @@ struct WeatherResultView: View {
     @State private var isDragging = false
     @State private var curHeight: CGFloat = 650
     @State private var isLiked: Bool = false
+    @State private var epsilon = 0.000001
     
     let minHeight: CGFloat = 600
     let maxHeight: CGFloat = 680
@@ -150,12 +151,48 @@ struct WeatherResultView: View {
             }
     }
     
-    
-    private func itemExists() -> Bool {
+    // https://stackoverflow.com/questions/20794757/check-if-name-attribute-already-exists-in-coredata
+    // https://stackoverflow.com/questions/57741929/swiftui-with-core-data-fetch-request-with-predicate-crashes
+     func itemExists(latitude: Double, longitude: Double) -> Bool {
         let fetchRequest : NSFetchRequest<SavedWeather> = SavedWeather.fetchRequest()
-        let predicate = NSPredicate(format: "latitude == %d AND longitude == %d", searchResult.chosenLocation.latitude, searchResult.chosenLocation.longitude)
-            return ((try? moc.count(for: fetchRequest)) ?? 0) > 0
+        let predicate = NSPredicate(format: "latitude > %f AND latitude < %f AND longitude > %f AND longitude < %f", latitude - epsilon, latitude + epsilon, longitude - epsilon, longitude + epsilon)
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        do{
+            let count = try moc.count(for: fetchRequest)
+            
+            if count == 0{
+                return false
+            }
+            else{
+                return true
+            }
+        } catch let error as NSError{
+            print("Could not fetch \(error) \(error.userInfo)")
         }
+        return true
+    }
+    
+    
+    func addToData(latitude: Double, longitude: Double){
+        print(itemExists(latitude: latitude, longitude: longitude))
+        if !itemExists(latitude: latitude, longitude: longitude){
+            print("NU ÄR JAG I BÖRJAN AV KNAPPEN")
+            let weatherPage = SavedWeather(context: moc)
+            weatherPage.id = UUID()
+            print("weatherPageID: ", weatherPage.id ?? 0)
+            weatherPage.latitude = searchResult.chosenLocation.latitude
+            print("weatherPageLatitude: ", weatherPage.latitude)
+            weatherPage.longitude = searchResult.chosenLocation.longitude
+            print("weatherPageLongitude: ", weatherPage.latitude)
+            weatherPage.cityName = subResultCurrent.cityName
+            print("NU SPARAR JAG")
+            try? moc.save()
+            print("NU HAR JAG SPARAT")
+        }
+    }
+    
+    //    var isLiked: Bool = itemExists(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude)
 }
 
 struct WeatherResultView_Previews: PreviewProvider {
@@ -163,43 +200,60 @@ struct WeatherResultView_Previews: PreviewProvider {
         WeatherResultView(showResult: .constant(true))
     }
     
-    
 }
 
 
 extension WeatherResultView{
-    
-    private var likeButtonView: some View{
-        Button{
-            withAnimation(.easeInOut(duration: 0.1)){
-                if !itemExists(){
-                    let weatherPage = SavedWeather(context: moc)
-                    weatherPage.id = UUID()
-                    weatherPage.latitude = searchResult.chosenLocation.latitude
-                    weatherPage.longitude = searchResult.chosenLocation.longitude
-                    weatherPage.isLiked = true
-                    
-                    try? moc.save()
-                }
-                else{
-                   print("error. item already exists. u are stuck with it forever")
-                }
-            }
-        } label: {
-            if itemExists(){
-                Image(systemName: "heart.fill")
-                    .foregroundColor(Color.red)
-                    .padding(10)
-                    .background(Color.white.opacity(0.4))
-                    .clipShape(Circle())
-            }
-            else{
+    var likeButtonView: some View{
+        if !itemExists(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude){
+           return AnyView(Button{
+                addToData(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude)
+                print ("sparad")
+            } label: {
                 Image(systemName: "heart")
                     .foregroundColor(Color.black)
                     .padding(10)
                     .background(Color.white.opacity(0.4))
                     .clipShape(Circle())
-            }
+            })
+        }
+        else{
+            return AnyView(Button{
+                print ("finns redan")
+            } label: {
+                Image(systemName: "heart.fill")
+                    .foregroundColor(Color.red)
+                    .padding(10)
+                    .background(Color.white.opacity(0.4))
+                    .clipShape(Circle())
+            })
         }
     }
 }
+
+
+//    if itemExists(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude){
+//        Button{
+//            withAnimation(.easeInOut(duration: 0.1)){
+//                if !itemExists(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude){
+//                    addToData(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude)
+//                }
+//            }
+//        } label: {
+//            if itemExists(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude){
+//                Image(systemName: "heart.fill")
+//                    .foregroundColor(Color.red)
+//                    .padding(10)
+//                    .background(Color.white.opacity(0.4))
+//                    .clipShape(Circle())
+//            }
+//            else{
+//                Image(systemName: "heart")
+//                    .foregroundColor(Color.black)
+//                    .padding(10)
+//                    .background(Color.white.opacity(0.4))
+//                    .clipShape(Circle())
+//            }
+//        }
+//    }
+//}

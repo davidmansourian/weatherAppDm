@@ -11,11 +11,11 @@ import SwiftUI
 @main
 
 struct weatherAppDmApp: App {
-    @StateObject private var dataController = DataController()
+    let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
             ScreenView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

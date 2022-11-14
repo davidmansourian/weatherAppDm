@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TodaysWeatherView: View {
-    @StateObject private var hourToday = WeatherViewModelHourly()
-    @StateObject private var weatherModel = APILoader()
+    @ObservedObject var hourToday: WeatherViewModelHourly
+    //@StateObject private var weatherModel = MainWeatherAppModel()
     @StateObject private var locationManager = LocationManager.shared
     var body: some View {
         VStack(){
@@ -67,6 +67,6 @@ struct TodaysWeatherView: View {
 
 struct TodaysWeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        TodaysWeatherView()
+        TodaysWeatherView(hourToday: WeatherViewModelHourly(weatherModel: MainWeatherAppModel()))
     }
 }

@@ -10,7 +10,7 @@ import CoreLocation
 
 struct TodaysWeatherTextView: View {
     @StateObject private var weatherModel = APILoader()
-    @StateObject var todays = WeatherViewModelCurrent()
+    @ObservedObject var todays: WeatherViewModelCurrent
     @StateObject var locationManager = LocationManager.shared
     @StateObject var codeTranslator = TranslatedWeathercodes()
     @StateObject var geoCoder = GeoCodeService()
@@ -41,6 +41,6 @@ struct TodaysWeatherTextView: View {
 }
 struct TodaysWeatherTextView_Previews: PreviewProvider {
     static var previews: some View {
-        TodaysWeatherTextView()
+        TodaysWeatherTextView(todays: WeatherViewModelCurrent(weatherModel: MainWeatherAppModel()))
     }
 }

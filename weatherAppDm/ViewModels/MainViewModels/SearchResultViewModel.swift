@@ -15,24 +15,41 @@ import Combine
 
 class SearchResultViewModel : ObservableObject {
     private var locationToken: Cancellable?
-    @Published private var coordinate : CLLocationCoordinate2D?
-    @Published var chosenLocation: CLLocationCoordinate2D
-    static let shared = SearchResultViewModel(chosenLocation: CLLocationCoordinate2D())
+    private let mapSearch: MapSearch
+    @Published var coordinate : CLLocationCoordinate2D?
     
-    init(chosenLocation: CLLocationCoordinate2D) {
-        self.chosenLocation = chosenLocation
+    init(mapSearch: MapSearch) {
+        self.mapSearch = mapSearch
     }
     
     
-    func getLocation(location: MKLocalSearchCompletion) -> CLLocationCoordinate2D{
+    func getLocation(location: MKLocalSearchCompletion) async -> CLLocationCoordinate2D {
         let searchRequest = MKLocalSearch.Request(completion: location)
         let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            if error == nil, let coordinate = response?.mapItems.first?.placemark.coordinate {
+            do{
+                let response = try? await search.start()
+                guard response != nil else{
+                    return CLLocationCoordinate2D()
+                }
+                let coordinate = response?.mapItems.first?.placemark.coordinate
                 self.coordinate = coordinate
+                return coordinate ?? CLLocationCoordinate2D()
+                
             }
-        }
-        return self.coordinate ?? CLLocationCoordinate2D()
+        
+        
+//        search.start { response, error in
+//            do{
+//                if error == nil, let coordinate = response?.mapItems.first?.placemark.coordinate {
+//                    self.coordinate = coordinate
+//                }
+//            }
+//        }
+    }
+    
+    
+    enum MyErrors: Error {
+        
     }
     
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ForecastView: View {
-    @StateObject private var weatherViewModelDaily = WeatherViewModelDaily()
+    @ObservedObject var weatherViewModelDaily: WeatherViewModelDaily
     //@StateObject private var locationManager = LocationManager.shared
 
     let columns = [GridItem(.flexible()),
@@ -51,6 +51,6 @@ struct ForecastView: View {
 
 struct ForecastView_Previews: PreviewProvider {
     static var previews: some View {
-        ForecastView()
+        ForecastView(weatherViewModelDaily: WeatherViewModelDaily(weatherModel: MainWeatherAppModel()))
     }
 }

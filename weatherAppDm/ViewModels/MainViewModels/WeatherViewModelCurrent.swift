@@ -16,7 +16,7 @@ class WeatherViewModelCurrent: ObservableObject{
     private var dailyViewModelToken: Cancellable?
     private var cityLocationToken: Cancellable?
     private var cityNameToken: Cancellable?
-    private var weatherModel = MainWeatherAppModel()
+    private let weatherModel: MainWeatherAppModel
     @Published var temperature: Int?
     @Published var maxTemp: [Float]?
     @Published var minTemp: [Float]?
@@ -25,7 +25,8 @@ class WeatherViewModelCurrent: ObservableObject{
     @Published var cityLocation: CLLocation?
     @Published var cityName: String?
     
-    init(){
+    init(weatherModel: MainWeatherAppModel){
+        self.weatherModel = weatherModel
         currentViewModelToken = weatherModel.$currentWeather
             .print("debugging")
             .sink(receiveCompletion: { completion in

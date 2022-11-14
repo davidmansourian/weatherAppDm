@@ -9,15 +9,15 @@ import Foundation
 import Combine
 
 
-class WeatherViewModelHourly: ObservableObject{
-    private var weatherModel: MainWeatherAppModel
+class SubViewModelHourly: ObservableObject{
+    private var weatherModel: SubWeatherModdel
     private var hourlyViewModelToken: Cancellable?
     @Published var temperature: [Float]?
     @Published var weatherCode: [Int]?
     @Published var date: [String]?
     
     
-    init(weatherModel: MainWeatherAppModel){
+    init(weatherModel: SubWeatherModdel){
         self.weatherModel = weatherModel
         hourlyViewModelToken = weatherModel.$hourlyWeather
             .sink(receiveCompletion: {completion in

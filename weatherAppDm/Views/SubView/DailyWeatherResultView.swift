@@ -8,28 +8,27 @@
 import SwiftUI
 
 struct DailyWeatherResultView: View {
-    @StateObject var subResultDaily = WeatherSubViewModelDaily()
-    @StateObject var subResultCurrent = WeatherViewSubModelCurrent()
+    @ObservedObject var weatherModel = SubWeatherModdel()
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             Grid{
                 GridRow{
                     ForEach(0...6, id: \.self){ day in
-                        Text(subResultDaily.getDayName()[day])
+                        Text(weatherModel.subDailyWeatherVM?.getDayName()[day] ?? "")
                             .foregroundColor(Color.white)
                     }
                 }
                 .padding()
                 GridRow{
                     ForEach(0...6, id: \.self){ day in
-                        Image(systemName: TranslatedWeathercodes().weatherCodeProperties[subResultDaily.getDailyImgString()[day]]?.weatherIcon ?? "")
+                        Image(systemName: TranslatedWeathercodes().weatherCodeProperties[weatherModel.subDailyWeatherVM?.getDailyImgString()[day] ?? 0]?.weatherIcon ?? "")
                             .renderingMode(.original)
                     }
                 }
                 .padding()
                 GridRow{
                     ForEach(0...6, id: \.self){ day in
-                        Text(subResultDaily.getDailyAvgTemp()[day])
+                        Text(weatherModel.subDailyWeatherVM?.getDailyAvgTemp()[day] ?? "")
                             .foregroundColor(Color.white)
                     }
                 }

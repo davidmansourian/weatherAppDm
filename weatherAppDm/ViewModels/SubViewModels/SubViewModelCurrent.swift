@@ -7,31 +7,40 @@
 
 import Foundation
 import Combine
+import SwiftUI
+import CoreLocation
 
-class WeatherViewSubModelCurrent: ObservableObject{
-    private var currentSubViewModelToken: Cancellable?
-    private var dailySubViewModelToken: Cancellable?
+
+class SubViewModelCurrent: ObservableObject{
+    private var currentViewModelToken: Cancellable?
+    private var dailyViewModelToken: Cancellable?
+    private var cityLocationToken: Cancellable?
     private var cityNameToken: Cancellable?
-    private var currentWeather = SubWeatherModel()
+    private let weatherModel: SubWeatherModdel
     @Published var temperature: Int?
     @Published var maxTemp: [Float]?
     @Published var minTemp: [Float]?
     @Published var weatherCode: Int?
     @Published var weatherCodeDescription: String?
+    @Published var cityLocation: CLLocation?
     @Published var cityName: String?
     
-    init(){
-        currentSubViewModelToken = currentWeather.$currentWeather
+    init(weatherModel: SubWeatherModdel){
+        self.weatherModel = weatherModel
+        currentViewModelToken = weatherModel.$currentWeather
+            .print("debugging")
             .sink(receiveCompletion: { completion in
                 print("Has completed", completion)
-            }, receiveValue: { [weak self] subWeather in
-                if let subWeather{
-                    self?.temperature = Int(subWeather.temperature)
-                    self?.weatherCode = subWeather.weathercode
+            }, receiveValue: { [weak self] weather in
+                print("hej")
+                if let weather{
+                    self?.temperature = Int(weather.temperature)
+                    self?.weatherCode = weather.weathercode
+                    
                 }
             })
         
-        dailySubViewModelToken = currentWeather.$dailyWeather
+        dailyViewModelToken = weatherModel.$dailyWeather
             .sink(receiveCompletion: {completion in
                 print(completion)
             }, receiveValue: {[weak self] theDailyWeather in
@@ -39,7 +48,7 @@ class WeatherViewSubModelCurrent: ObservableObject{
                 self?.minTemp = theDailyWeather?.temperature_2m_min
             })
         
-        cityNameToken = currentWeather.$cityName
+        cityNameToken = weatherModel.$cityName
             .sink(receiveCompletion: {completion in}, receiveValue: {[weak self]
                 theName in
                 if theName != nil{
@@ -48,9 +57,11 @@ class WeatherViewSubModelCurrent: ObservableObject{
             })
         
         
+        cityLocationToken = weatherModel.$location
+            .sink(receiveCompletion: {completion in}, receiveValue: {[weak self] location in
+                if let location{
+                    self?.cityLocation = location
+                }
+            })
     }
-    
-//    func getsubCurrentWeather(latitude: Double?, longitude: Double?){
-//        currentWeather.getWeather(latitude: latitude, longitude: longitude)
-//    }
 }

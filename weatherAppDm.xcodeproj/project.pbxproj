@@ -24,6 +24,8 @@
 		DB4F7CDF29192053006833DF /* WeatherViewModelDaily.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CDE29192053006833DF /* WeatherViewModelDaily.swift */; };
 		DB4F7CE3291951EC006833DF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CE2291951EC006833DF /* LocationService.swift */; };
 		DB4F7CE5291C17CF006833DF /* MapSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F7CE4291C17CF006833DF /* MapSearch.swift */; };
+		DB65A3862923DB640010094F /* SubViewModelHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65A3852923DB640010094F /* SubViewModelHourly.swift */; };
+		DB65A388292509570010094F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65A387292509570010094F /* MainView.swift */; };
 		DB9D5BE3291CE8D70016F6EF /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BE2291CE8D70016F6EF /* SearchResultViewModel.swift */; };
 		DB9D5BE7291CF1570016F6EF /* WeatherResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BE6291CF1570016F6EF /* WeatherResultView.swift */; };
 		DB9D5BF3291E870E0016F6EF /* SubViewModelCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5BF2291E870E0016F6EF /* SubViewModelCurrent.swift */; };
@@ -35,7 +37,6 @@
 		DB9D5C03291FCDB10016F6EF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C02291FCDB10016F6EF /* SettingsView.swift */; };
 		DB9D5C33292147650016F6EF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C32292147650016F6EF /* Persistence.swift */; };
 		DB9D5C3629214AEF0016F6EF /* TheWeatherDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C3429214AEF0016F6EF /* TheWeatherDB.xcdatamodeld */; };
-		DB9D5C3B292195B10016F6EF /* SavedPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D5C3A292195B10016F6EF /* SavedPagesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		DB4F7CDE29192053006833DF /* WeatherViewModelDaily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelDaily.swift; sourceTree = "<group>"; };
 		DB4F7CE2291951EC006833DF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		DB4F7CE4291C17CF006833DF /* MapSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearch.swift; sourceTree = "<group>"; };
+		DB65A3852923DB640010094F /* SubViewModelHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewModelHourly.swift; sourceTree = "<group>"; };
+		DB65A387292509570010094F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		DB9D5BE2291CE8D70016F6EF /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		DB9D5BE6291CF1570016F6EF /* WeatherResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResultView.swift; sourceTree = "<group>"; };
 		DB9D5BF2291E870E0016F6EF /* SubViewModelCurrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewModelCurrent.swift; sourceTree = "<group>"; };
@@ -69,7 +72,6 @@
 		DB9D5C02291FCDB10016F6EF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DB9D5C32292147650016F6EF /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		DB9D5C3529214AEF0016F6EF /* TheWeatherDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TheWeatherDB.xcdatamodel; sourceTree = "<group>"; };
-		DB9D5C3A292195B10016F6EF /* SavedPagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPagesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				DB9D5C37292192140016F6EF /* MainView */,
-				DB9D5C39292193010016F6EF /* SavedPagesView */,
 				DB9D5BE8291D18CD0016F6EF /* SubView */,
 			);
 			path = Views;
@@ -187,6 +188,7 @@
 			children = (
 				DB9D5BF2291E870E0016F6EF /* SubViewModelCurrent.swift */,
 				DB9D5BF4291E87190016F6EF /* SubViewModelDaily.swift */,
+				DB65A3852923DB640010094F /* SubViewModelHourly.swift */,
 			);
 			path = SubViewModels;
 			sourceTree = "<group>";
@@ -203,6 +205,7 @@
 		DB9D5C37292192140016F6EF /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				DB65A387292509570010094F /* MainView.swift */,
 				DB07219429117001005C2C03 /* ScreenView.swift */,
 				DB072196291175CB005C2C03 /* ForecastView.swift */,
 				DB072198291175F8005C2C03 /* WeatherView.swift */,
@@ -222,14 +225,6 @@
 				DB9D5BE2291CE8D70016F6EF /* SearchResultViewModel.swift */,
 			);
 			path = MainViewModels;
-			sourceTree = "<group>";
-		};
-		DB9D5C39292193010016F6EF /* SavedPagesView */ = {
-			isa = PBXGroup;
-			children = (
-				DB9D5C3A292195B10016F6EF /* SavedPagesView.swift */,
-			);
-			path = SavedPagesView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,13 +298,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB07219529117001005C2C03 /* ScreenView.swift in Sources */,
+				DB65A388292509570010094F /* MainView.swift in Sources */,
 				DB0721B32912E60E005C2C03 /* WeatherViewModelCurrent.swift in Sources */,
 				DB9D5BE3291CE8D70016F6EF /* SearchResultViewModel.swift in Sources */,
 				DB4F7CDF29192053006833DF /* WeatherViewModelDaily.swift in Sources */,
 				DB9D5BE7291CF1570016F6EF /* WeatherResultView.swift in Sources */,
 				DB0721A32912BB5C005C2C03 /* SearchResultView.swift in Sources */,
 				DB9D5BF7291E97670016F6EF /* GeoCoderService.swift in Sources */,
-				DB9D5C3B292195B10016F6EF /* SavedPagesView.swift in Sources */,
 				DB9D5C33292147650016F6EF /* Persistence.swift in Sources */,
 				DB9D5C3629214AEF0016F6EF /* TheWeatherDB.xcdatamodeld in Sources */,
 				DB2A4CBB29140CA7008F52FB /* WeatherService.swift in Sources */,
@@ -319,6 +314,7 @@
 				DB07218429116A8B005C2C03 /* weatherAppDmApp.swift in Sources */,
 				DB9D5C01291EDC570016F6EF /* DailyWeatherResultView.swift in Sources */,
 				DB07219D2911BB43005C2C03 /* TodaysWeatherTextView.swift in Sources */,
+				DB65A3862923DB640010094F /* SubViewModelHourly.swift in Sources */,
 				DB2A4CC12914432A008F52FB /* WeatherViewModelHourly.swift in Sources */,
 				DB9D5C03291FCDB10016F6EF /* SettingsView.swift in Sources */,
 				DB9D5BF3291E870E0016F6EF /* SubViewModelCurrent.swift in Sources */,

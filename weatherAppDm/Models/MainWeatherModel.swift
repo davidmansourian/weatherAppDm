@@ -17,9 +17,11 @@ class MainWeatherAppModel: ObservableObject{
     private var mainLocationToken: Cancellable?
     private var cityNameToken: Cancellable?
     
+    var currentWeatherVM: WeatherViewModelCurrent?
+    var dailyWeatherVM: WeatherViewModelDaily?
+    var hourlyWeatherVM: WeatherViewModelHourly?
     @Published var mainWeatherService = APILoader()
     @Published var mainGeoCoder = GeoCodeService()
-    
     @Published var currentWeather: CurrentWeather?
     @Published var hourlyWeather: HourlyWeather?
     @Published var dailyWeather: DailyWeather?
@@ -27,6 +29,9 @@ class MainWeatherAppModel: ObservableObject{
     @Published var cityName: String?
     
     init(){
+        currentWeatherVM = WeatherViewModelCurrent(weatherModel: self)
+        dailyWeatherVM = WeatherViewModelDaily(weatherModel: self)
+        hourlyWeatherVM = WeatherViewModelHourly(weatherModel: self)
         currentWeatherDataToken = mainWeatherService.$currentWeather
             .sink(receiveCompletion: {completion in}, receiveValue: {[weak self] currentWeatherData in
                 if let currentWeatherData{

@@ -7,37 +7,32 @@
 //modal transition tutorial found here https://www.youtube.com/watch?v=I1fsl1wvsjY
 import SwiftUI
 import CoreLocation
-
-struct generatingID{
-    var IDArr: [Int] = []
-    let id = UUID()
-}
+import MapKit
 
 struct SearchResultView: View {
-    @StateObject var weatherModel = APILoader()
-    @StateObject private var mapSearch = MapSearch()
-    @ObservedObject var searchResult = SearchResultViewModel.shared
+    @StateObject var weatherModel = SubWeatherModdel()
     @State var chosenResult = CLLocationCoordinate2D()
     @State private var showResult = false
     @State private var offset: CGFloat = 200.0
     
     var body: some View {
+        //     var theSearchTerm = weatherModel.mapSearch?.searchTerm
         NavigationStack{
             ZStack{
                 //                LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
                 //                    .edgesIgnoringSafeArea(.all)
                 ScrollView{
                     VStack{
-                        ForEach(mapSearch.locationResults, id: \.self) { location in
-                            Button(action: {
-                                print(searchResult.getLocation(location: location),
-                                      hideKeyboard(),
-                                      chosenResult = searchResult.getLocation(location: location),
-                                      self.searchResult.chosenLocation = chosenResult,
-                                      print("chosen result: ", chosenResult),
-                                      print("chosen location from class: ", self.searchResult.chosenLocation),
-                                      showResult = true
-                                )}
+                        ForEach(weatherModel.mapSearch.locationResults, id: \.self) { location in
+                            Button(action:
+                                    {
+                                hideKeyboard()
+                                Task{
+                                    let result = await weatherModel.mapSearch.searchResultVM?.getLocation(location: location)
+                                    self.chosenResult = result ?? CLLocationCoordinate2D()
+                                    showResult = true
+                                }
+                            }
                                    , label: {
                                 Text(location.title)
                                     .foregroundColor(Color.white)
@@ -51,13 +46,22 @@ struct SearchResultView: View {
                     }
                     
                 }
+                
+                //                print(searchResult.getLocation(location: location),
+                //                          hideKeyboard(),
+                //                          chosenResult = searchResult.getLocation(location: location),
+                //                          self.searchResult.chosenLocation = chosenResult,
+                //                          print("chosen result: ", chosenResult),
+                //                          print("chosen location from class: ", self.searchResult.chosenLocation),
+                //                          showResult = true
+                //                    )
                 .scrollDismissesKeyboard(.interactively)
-                WeatherResultView(showResult: $showResult)
-                    .animation(.easeInOut(duration: 1), value: showResult)
+                WeatherResultView(showResult: $showResult, chosenResult: $chosenResult)
+                .animation(.easeInOut(duration: 0.3), value: showResult)
                 
                 .toolbar{
                     ToolbarItemGroup(placement: .principal){
-                        TextField("Search locations...", text: $mapSearch.searchTerm)
+                        TextField("Search locations...", text: $weatherModel.mapSearch.searchTerm)
                             .foregroundColor(Color.white)
                             .font(.headline)
                             .padding()
@@ -75,6 +79,9 @@ struct SearchResultView: View {
                         
                     }
                 }
+            }
+            .onAppear(){
+                // weatherModel.mapSearch.searchResultVM.getLocation(location: weatherModel.mapSearch.locationResults)
             }
         }
     }

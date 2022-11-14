@@ -15,11 +15,13 @@ struct ScreenView: View {
     @FetchRequest(sortDescriptors: []) var weatherPages: FetchedResults<SavedWeather>
     @State private var showSearchBar = false
     @State private var isLiked = false
-    @StateObject private var weatherModel = APILoader()
+    @StateObject private var weatherModel = MainWeatherAppModel()
     @StateObject var locationManager = LocationManager.shared
     let transition: AnyTransition = .asymmetric(
         insertion: .move(edge: .trailing),
         removal: .move(edge: .leading))
+    
+    // Once relationships have been cleaned up, create main model here and make optional regarding saved coredata or location-fetched data. If saved = init saved, if not saved, init location-fetched
 
     var body: some View {
         NavigationStack{
@@ -27,45 +29,40 @@ struct ScreenView: View {
                 LinearGradient(gradient: Gradient(colors:[.yellow,.blue,.blue]), startPoint: .topTrailing, endPoint: .bottomLeading) // Change color depending on time of day and weather
                 //TranslatedWeathercodes().backGroundForWeatherCode[0]
                     .edgesIgnoringSafeArea(.all)
-                ScrollView(.vertical){
-                    VStack(alignment: .center, spacing: 15) {
-                        TodaysWeatherTextView()
-                        TodaysWeatherView()
-                        ForecastView()
-                    }
-                }
-                .onTapGesture {
-                    if showSearchBar{
-                        withAnimation(.easeInOut(duration: 0.4)){
-                            showSearchBar.toggle()
+                    ScrollView(.vertical){
+                        VStack(alignment: .center, spacing: 15) {
+                            if let currentWeatherVM = weatherModel.currentWeatherVM {
+                                TodaysWeatherTextView(todays: currentWeatherVM)
+                            }
+                            if let hourlyWeatherVM = weatherModel.hourlyWeatherVM {
+                                TodaysWeatherView(hourToday: hourlyWeatherVM)
+                            }
+                            if let dailyWeatherVM = weatherModel.dailyWeatherVM {
+                                ForecastView(weatherViewModelDaily: dailyWeatherVM)
+                            }
                         }
-                        
                     }
-                }
-               .blur(radius: showSearchBar ? 10 : 0)
-               .scrollDisabled(showSearchBar ? true : false)
-               .padding(.top, 1)
-                .toolbar{
-                    ToolbarItemGroup(placement: .navigationBarTrailing){
-                        Button {
-                            withAnimation(.linear(duration: 0.2)){
+                
+                    .onTapGesture {
+                        if showSearchBar{
+                            withAnimation(.easeInOut(duration: 0.4)){
                                 showSearchBar.toggle()
                             }
-                        } label: {
-                            if !showSearchBar{
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(Color.black)
-                                    .padding(10)
-                                    .background(Color.white.opacity(0.4))
-                                    .clipShape(Circle())
-                            }
+                            
                         }
                     }
-                    if !showSearchBar{
-                        ToolbarItemGroup(placement: .navigationBarLeading){
-                            if !showSearchBar{
-                                NavigationLink(destination:SettingsView().transition(transition)){
-                                    Image(systemName: "gearshape")
+                    .blur(radius: showSearchBar ? 10 : 0)
+                    .scrollDisabled(showSearchBar ? true : false)
+                    .padding(.top, 1)
+                    .toolbar{
+                        ToolbarItemGroup(placement: .navigationBarTrailing){
+                            Button {
+                                withAnimation(.linear(duration: 0.2)){
+                                    showSearchBar.toggle()
+                                }
+                            } label: {
+                                if !showSearchBar{
+                                    Image(systemName: "magnifyingglass")
                                         .foregroundColor(Color.black)
                                         .padding(10)
                                         .background(Color.white.opacity(0.4))
@@ -73,25 +70,37 @@ struct ScreenView: View {
                                 }
                             }
                         }
-                    }
-                    if showSearchBar{
-                        ToolbarItemGroup(placement: .navigationBarLeading){
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.4)){
-                                    showSearchBar.toggle()
+                        if !showSearchBar{
+                            ToolbarItemGroup(placement: .navigationBarLeading){
+                                if !showSearchBar{
+                                    NavigationLink(destination:SettingsView().transition(transition)){
+                                        Image(systemName: "gearshape")
+                                            .foregroundColor(Color.black)
+                                            .padding(10)
+                                            .background(Color.white.opacity(0.4))
+                                            .clipShape(Circle())
+                                    }
                                 }
-                            }){
-                                Image(systemName: "arrow.left")
-                                    .foregroundColor(Color.white)
+                            }
+                        }
+                        if showSearchBar{
+                            ToolbarItemGroup(placement: .navigationBarLeading){
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 0.4)){
+                                        showSearchBar.toggle()
+                                    }
+                                }){
+                                    Image(systemName: "arrow.left")
+                                        .foregroundColor(Color.white)
+                                }
                             }
                         }
                     }
+                    if showSearchBar{
+                        SearchResultView()
+                        
+                    }
                 }
-                if showSearchBar{
-                    SearchResultView()
-                    
-                }
-            }
             .onAppear(){
                 locationManager.updateLocation()
             }
@@ -107,4 +116,6 @@ struct ScreenView_Previews: PreviewProvider {
         ScreenView()
     }
 }
+
+
 

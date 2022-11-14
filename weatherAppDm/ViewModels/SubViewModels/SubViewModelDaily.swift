@@ -11,15 +11,16 @@ import Combine
 class WeatherSubViewModelDaily: ObservableObject{
 
 
-    private var dailyWeather = SubWeatherModel()
-    private var subDailyViewModelToken: Cancellable?
+    private let weatherModel: SubWeatherModdel
+    private var dailyViewModelToken: Cancellable?
     @Published var date: [String]?
     @Published var maxTemp: [Float]?
     @Published var minTemp: [Float]?
     @Published var weatherCode: [Int]?
     
-    init(){
-        subDailyViewModelToken = dailyWeather.$dailyWeather
+    init(weatherModel: SubWeatherModdel){
+        self.weatherModel = weatherModel
+        dailyViewModelToken = weatherModel.$dailyWeather
             .sink(receiveCompletion: {completion in
                 print(completion)
             }, receiveValue: {[weak self] theDailyWeather in
@@ -29,13 +30,6 @@ class WeatherSubViewModelDaily: ObservableObject{
                 self?.weatherCode = theDailyWeather?.weathercode
             })
     }
-    
-    
-    
-    
-    
-    
-    
     // Below function is created by Ahmad F and is used from https://stackoverflow.com/questions/49387344/how-to-get-an-array-of-days-between-two-dates-in-swift
     func datesRange(from: Date, to: Date) -> [Date] {
         // in case of the "from" date is more than "to" date,
@@ -52,24 +46,6 @@ class WeatherSubViewModelDaily: ObservableObject{
 
         return array
     }
-    
-    
-//    func getDailyMaxTemp() -> [Float]{
-//        var dailyMaxTemp: [Float] = []
-//        for i in 0...6{
-//            dailyMaxTemp.append(weatherModel.dailyWeather?.temperature_2m_max[i] ?? 00)
-//        }
-//        return dailyMaxTemp
-//    }
-//
-//    func getDailyMinTemp() -> [Float]{
-//        var dailyMinTemp: [Float] = []
-//        for i in 0...6{
-//            dailyMinTemp.append(weatherModel.dailyWeather?.temperature_2m_min[i] ?? 0)
-//        }
-//        return dailyMinTemp
-//    }
-    
     func getDailyAvgTemp() -> [String]{
         var dailyAvgTemp: [String] = []
         for i in 0...6{

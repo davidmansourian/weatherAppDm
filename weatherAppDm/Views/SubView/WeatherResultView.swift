@@ -24,7 +24,6 @@ struct WeatherResultView: View {
     @State private var isDragging = false
     @State private var curHeight: CGFloat = 650
     @State private var isLiked: Bool = false
-    @State private var epsilon = 0.000001
     
     let minHeight: CGFloat = 600
     let maxHeight: CGFloat = 680
@@ -153,9 +152,11 @@ struct WeatherResultView: View {
     
     // https://stackoverflow.com/questions/20794757/check-if-name-attribute-already-exists-in-coredata
     // https://stackoverflow.com/questions/57741929/swiftui-with-core-data-fetch-request-with-predicate-crashes
-     func itemExists(latitude: Double, longitude: Double) -> Bool {
+    // https://stackoverflow.com/questions/19713261/how-would-you-make-a-predicate-in-coredata-to-search-for-a-float-within-a-tolera
+    func itemExists(latitude: Double, longitude: Double) -> Bool {
         let fetchRequest : NSFetchRequest<SavedWeather> = SavedWeather.fetchRequest()
-        let predicate = NSPredicate(format: "latitude > %f AND latitude < %f AND longitude > %f AND longitude < %f", latitude - epsilon, latitude + epsilon, longitude - epsilon, longitude + epsilon)
+        print("LATITUDE: ", latitude, "LONGITUDE: ", longitude)
+        let predicate = NSPredicate(format: "abs(latitude - %f) < 0.00001 AND abs(longitude - %f) < 0.00001", latitude, longitude)
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
         do{
@@ -173,6 +174,56 @@ struct WeatherResultView: View {
         return true
     }
     
+    func deleteItem(){
+        print("HI IM HERE")
+        for page in weatherPages{
+            print("OFFSET: ", offset)
+            print(page)
+            if page.cityName == subResultCurrent.cityName{
+                moc.delete(page)
+            }
+        }
+        try? moc.save()
+   }
+    
+//    func getEpsilon(coordinate: Double) -> Double{
+//        let doubleString = String(coordinate)
+//        var hasReachedDecimalPoint = false
+//        var decimalCounter: Int = 0
+//        for char in doubleString{
+//            if hasReachedDecimalPoint{
+//                decimalCounter+=1
+//            }
+//            if char == "." || char == ","{
+//                hasReachedDecimalPoint = true
+//                print("JAG PRINTAR DUBBELSTRÄNG: ", String(doubleString))
+//            }
+//        }
+//        switch decimalCounter{
+//        case 0:
+//            return 0
+//        case 1:
+//            return 0
+//        case 2:
+//            return 0
+//        case 3:
+//            return 0.01
+//
+//        case 4:
+//            return 0.001
+//        case 5:
+//            return 0.0001
+//        case 6:
+//            return 0.00001
+//        case 7:
+//            return 0.000001
+//        case 8:
+//            return 0.0000001
+//         default:
+//            return 0
+//        }
+//    }
+//
     
     func addToData(latitude: Double, longitude: Double){
         print(itemExists(latitude: latitude, longitude: longitude))
@@ -217,9 +268,9 @@ extension WeatherResultView{
                     .clipShape(Circle())
             })
         }
-        else{
+        else if itemExists(latitude: searchResult.chosenLocation.latitude, longitude: searchResult.chosenLocation.longitude){
             return AnyView(Button{
-                print ("finns redan")
+                deleteItem()
             } label: {
                 Image(systemName: "heart.fill")
                     .foregroundColor(Color.red)
@@ -228,7 +279,19 @@ extension WeatherResultView{
                     .clipShape(Circle())
             })
         }
+        else{
+            return AnyView(Button{
+                print ("finns redan")
+            } label: {
+                Image(systemName: "heart")
+                    .foregroundColor(Color.black)
+                    .padding(10)
+                    .background(Color.white.opacity(0.4))
+                    .clipShape(Circle())
+            })
+        }
     }
+    
 }
 
 

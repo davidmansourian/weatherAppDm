@@ -11,11 +11,10 @@ import CoreData
 
 
 struct ScreenView: View {
-    @Environment(\.managedObjectContext) var moc
+    var moc = PersistenceController.shared.container.viewContext
     @FetchRequest(sortDescriptors: []) var weatherPages: FetchedResults<SavedWeather>
     @State private var showSearchBar = false
     @State private var isLiked = false
-    @State private var selection: String? = nil
     @StateObject private var weatherModel = APILoader()
     @StateObject var locationManager = LocationManager.shared
     let transition: AnyTransition = .asymmetric(

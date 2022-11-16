@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ForecastView: View {
     @ObservedObject var weatherViewModelDaily: WeatherViewModelDaily
+    
     //@StateObject private var locationManager = LocationManager.shared
 
     let columns = [GridItem(.flexible()),

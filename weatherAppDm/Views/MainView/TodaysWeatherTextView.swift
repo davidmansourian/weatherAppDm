@@ -9,9 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct TodaysWeatherTextView: View {
-    @StateObject private var weatherModel = APILoader()
     @ObservedObject var todays: WeatherViewModelCurrent
-    @StateObject var locationManager = LocationManager.shared
     @StateObject var codeTranslator = TranslatedWeathercodes()
     @StateObject var geoCoder = GeoCodeService()
     

@@ -30,17 +30,17 @@ struct ScreenView: View {
                 //TranslatedWeathercodes().backGroundForWeatherCode[0]
                     .edgesIgnoringSafeArea(.all)
                     ScrollView(.vertical){
-                        VStack(alignment: .center, spacing: 15) {
-                            if let currentWeatherVM = weatherModel.currentWeatherVM {
-                                TodaysWeatherTextView(todays: currentWeatherVM)
+                            VStack(alignment: .center, spacing: 15) {
+                                if let currentWeatherVM = weatherModel.currentWeatherVM {
+                                    TodaysWeatherTextView(todays: currentWeatherVM)
+                                }
+                                if let hourlyWeatherVM = weatherModel.hourlyWeatherVM {
+                                    TodaysWeatherView(hourToday: hourlyWeatherVM)
+                                }
+                                if let dailyWeatherVM = weatherModel.dailyWeatherVM {
+                                    ForecastView(weatherViewModelDaily: dailyWeatherVM)
+                                }
                             }
-                            if let hourlyWeatherVM = weatherModel.hourlyWeatherVM {
-                                TodaysWeatherView(hourToday: hourlyWeatherVM)
-                            }
-                            if let dailyWeatherVM = weatherModel.dailyWeatherVM {
-                                ForecastView(weatherViewModelDaily: dailyWeatherVM)
-                            }
-                        }
                     }
                 
                     .onTapGesture {
@@ -73,8 +73,8 @@ struct ScreenView: View {
                         if !showSearchBar{
                             ToolbarItemGroup(placement: .navigationBarLeading){
                                 if !showSearchBar{
-                                    NavigationLink(destination:SettingsView().transition(transition)){
-                                        Image(systemName: "gearshape")
+                                    NavigationLink(destination:SubView().transition(transition)){
+                                        Image(systemName: "text.justify")
                                             .foregroundColor(Color.black)
                                             .padding(10)
                                             .background(Color.white.opacity(0.4))

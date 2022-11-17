@@ -138,7 +138,6 @@
 		DB07219229116F63005C2C03 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				DBD7448A29256BB50058225A /* SavedPagesViewModel */,
 				DB9D5C382921922B0016F6EF /* MainViewModels */,
 				DB9D5BF1291E86F10016F6EF /* SubViewModels */,
 			);
@@ -226,13 +225,6 @@
 				DB9D5BE2291CE8D70016F6EF /* SearchResultViewModel.swift */,
 			);
 			path = MainViewModels;
-			sourceTree = "<group>";
-		};
-		DBD7448A29256BB50058225A /* SavedPagesViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SavedPagesViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

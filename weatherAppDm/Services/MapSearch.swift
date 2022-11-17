@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import MapKit
 
+// class was implemented by following tutorial in link below:
 // https://stackoverflow.com/questions/33380711/how-to-implement-auto-complete-for-address-using-apple-map-kit/67131376#67131376
 
 class MapSearch: NSObject, ObservableObject{

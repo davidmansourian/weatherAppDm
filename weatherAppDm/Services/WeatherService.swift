@@ -14,7 +14,6 @@ class APILoader: ObservableObject{
     private var cancellable: Cancellable?
     private let jsonDecoder = JSONDecoder()
     private var locationToken: Cancellable?
-    static let shared = APILoader()
     
     
     @Published var currentWeather: CurrentWeather?

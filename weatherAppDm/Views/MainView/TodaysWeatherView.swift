@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TodaysWeatherView: View {
     @ObservedObject var hourToday: WeatherViewModelHourly
-    //@StateObject private var weatherModel = MainWeatherAppModel()
     @StateObject private var locationManager = LocationManager.shared
     var body: some View {
         VStack(){
@@ -47,7 +46,7 @@ struct TodaysWeatherView: View {
                             ForEach(hourToday.getTemperatureForI(), id: \.self){ i in
                                 Text("\(i)°")
                                     .foregroundColor(Color.white)
-                            } // ska hämta data från viewmodel
+                            }
                         }
                         .padding()
                     }
@@ -56,7 +55,6 @@ struct TodaysWeatherView: View {
                     Rectangle()
                         .fill(Color.white.opacity(0.2))
                 )
-                //.background(Color.gray.opacity(0))
                 .cornerRadius(15)
                 .padding()
                 .shadow(radius: 3)

@@ -80,9 +80,6 @@ struct SearchResultView: View {
                     }
                 }
             }
-            .onAppear(){
-                // weatherModel.mapSearch.searchResultVM.getLocation(location: weatherModel.mapSearch.locationResults)
-            }
         }
     }
 }

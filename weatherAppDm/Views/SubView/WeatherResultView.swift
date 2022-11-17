@@ -255,9 +255,10 @@ extension WeatherResultView{
 }
 
 extension WeatherResultView{
-    // https://stackoverflow.com/questions/20794757/check-if-name-attribute-already-exists-in-coredata
+    //Solutions found in following links below https://stackoverflow.com/questions/20794757/check-if-name-attribute-already-exists-in-coredata
     // https://stackoverflow.com/questions/57741929/swiftui-with-core-data-fetch-request-with-predicate-crashes
     // https://stackoverflow.com/questions/19713261/how-would-you-make-a-predicate-in-coredata-to-search-for-a-float-within-a-tolera
+    
     func itemExists(latitude: Double, longitude: Double) -> Bool {
         let fetchRequest : NSFetchRequest<SavedWeather> = SavedWeather.fetchRequest()
         print("LATITUDE: ", latitude, "LONGITUDE: ", longitude)

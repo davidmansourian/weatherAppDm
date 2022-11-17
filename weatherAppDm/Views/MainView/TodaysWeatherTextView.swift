@@ -11,14 +11,9 @@ import CoreLocation
 struct TodaysWeatherTextView: View {
     @ObservedObject var todays: WeatherViewModelCurrent
     @StateObject var codeTranslator = TranslatedWeathercodes()
-    @StateObject var geoCoder = GeoCodeService()
     
     
     var body: some View {
-        //        let temperature: Int = Int(Float(weatherModel.currentWeather?.temperature ?? 0))
-        //        let maxTemp: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_max.first ?? 0))
-        //        let minTemp: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_min.first ?? 0))
-        //        let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[weatherCode]?.weatherDescription ?? ""
         VStack{
             Text(todays.cityName ?? "") // data ska senare hämtas från viewModel
                 .font(Font.title)

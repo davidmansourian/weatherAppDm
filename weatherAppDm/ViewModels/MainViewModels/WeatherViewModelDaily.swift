@@ -30,7 +30,7 @@ class WeatherViewModelDaily: ObservableObject{
                 self?.weatherCode = theDailyWeather?.weathercode
             })
     }
-    // Below function is created by Ahmad F and is used from https://stackoverflow.com/questions/49387344/how-to-get-an-array-of-days-between-two-dates-in-swift
+    // Below function is created by Ahmad F and was found at: https://stackoverflow.com/questions/49387344/how-to-get-an-array-of-days-between-two-dates-in-swift
     func datesRange(from: Date, to: Date) -> [Date] {
         // in case of the "from" date is more than "to" date,
         // it should returns an empty array:

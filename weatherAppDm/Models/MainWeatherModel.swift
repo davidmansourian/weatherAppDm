@@ -62,17 +62,6 @@ class MainWeatherAppModel: ObservableObject{
                 }
             })
         
-        
-//        mainGeoCoderToken = LocationManager.shared.$userLocation
-//            .sink(receiveCompletion: {completion in}, receiveValue: { location in
-//                print("location for city from MAinModel: ", location)
-//                if let location{
-//                    self.location = location
-//                    print("SELF LOCATIOOOOOOOOOOOON: ", location)
-//                    self.cityName = self.mainGeoCoder.getCityName(theLocation: location)
-//                }
-//            })
-        
         mainLocationToken = LocationManager.shared.$userLocation
             .sink(receiveCompletion: {completion in}, receiveValue: {[weak self] location in
                 if let location{

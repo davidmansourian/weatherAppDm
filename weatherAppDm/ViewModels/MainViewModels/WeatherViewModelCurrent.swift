@@ -64,38 +64,4 @@ class WeatherViewModelCurrent: ObservableObject{
                 }
             })
     }
-    
-    
-    
-    
-    //    func getCityName() -> String{
-    //        let cityName: String = weatherModel.cityName ?? "-"
-    //        return cityName
-    //    }
-    //
-    //    func getTemperature() -> Int{
-    //        let temperature: Int = Int(Float(weatherModel.currentWeather?.temperature ?? 0))
-    //        return temperature
-    //    }
-    //
-    //    func getMaxTemp() -> Int{
-    //        let maxTemp: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_max.first ?? 0))
-    //        return maxTemp
-    //    }
-    //
-    //    func getMinTemp() -> Int{
-    //        let minTemp: Int = Int(Float(weatherModel.dailyWeather?.temperature_2m_min.first ?? 0))
-    //        return minTemp
-    //    }
-    //
-    //    func getTodaysWeatherCode() -> Int{
-    //        let weatherCode: Int = weatherModel.currentWeather?.weathercode ?? 0
-    //        return weatherCode
-    //    }
-    //
-    //    func getWeatherDescription() -> String{
-    //        let weatherDescription: String = TranslatedWeathercodes().weatherCodeProperties[getTodaysWeatherCode()]?.weatherDescription ?? ""
-    //        return weatherDescription
-    //    }
-    
 }
